@@ -2,45 +2,184 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sagar’s Birthday Portal</title>
+  <title>Sagar’s Birthday Portal 🎉</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css?family=Inter:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
   <style>
-    html, body { background: #181325; min-height: 100vh; margin: 0; }
-    .container { max-width: 400px; margin: 5vh auto; background: #fff3; border-radius: 14px; box-shadow:0 4px 40px #0007; padding: 2em 1em 1.5em; text-align:center;}
-    h1 { color: #ffd600; }
-    form label { display: block; margin: 1.2em 0 0.5em; color: #fff; }
-    input, textarea { width: 92%; padding: 0.7em; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 1.1em; }
-    button { background: linear-gradient(90deg,#6a00ff,#ffd600 80%); color:#211e30; font-weight:bold; font-size:1.05em; border:none; border-radius:8px; padding:0.8em 2em; box-shadow:0 2px 10px #2224; cursor:pointer; }
-    .loading { color:#fff; font-size:1.1em; margin:2em 0 0;}
-    .result { display:none; margin-top:1em;}
-    .crazy-msg { color:#ffd600; font-size:1.15em; margin-bottom:1.3em; font-weight:bold; }
-    .art-img { max-width: 99%; border-radius:12px; box-shadow:0 2px 16px #0008; margin-bottom:1em; }
-    .gallery-link { margin:1em auto 0.5em; display:inline-block; color:#6a00ff; background:#fff8; border-radius:8px; padding:0.3em 1em; text-decoration:none;}
-    .spin-btn, .share-btn { margin:0.9em 0.6em 0; font-size:1em;}
+    html, body {
+      min-height: 100vh; margin:0; padding:0;
+      background: linear-gradient(135deg, #232946 0%, #836fff 100%);
+      font-family: 'Inter', Arial, sans-serif;
+      transition: background 0.7s;
+    }
+    .confetti-canvas { position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:9; }
+    .container {
+      max-width: 410px; margin: 7vh auto;
+      background: rgba(255,255,255,0.08);
+      border-radius: 32px;
+      box-shadow: 0 10px 40px #23294680, 0 2px 16px #6749e670;
+      backdrop-filter: blur(10px) saturate(1.4);
+      padding: 2.7em 1.5em 2.2em;
+      text-align: center;
+      border: 2.5px solid rgba(120,110,255,0.14);
+      animation: fadein 1s;
+    }
+    @keyframes fadein { from { opacity: 0; transform: scale(.97);} to { opacity: 1; transform: scale(1);} }
+    h1 {
+      font-weight: 800; font-size: 2em;
+      letter-spacing: 0.02em; color: #ffd600;
+      text-shadow: 2px 5px 14px #23294640, 0 1px 2px #fff4;
+      margin-bottom: .6em;
+    }
+    .subtitle {
+      color: #dfdfed;
+      font-size: 1.1em;
+      margin-bottom: 2em;
+      letter-spacing: .01em;
+    }
+    form label { display:block; margin:1.35em 0 0.5em; font-weight:700; color:#fff; }
+    input, textarea {
+      width: 93%; padding: 0.72em 1em;
+      border-radius: 13px; border: none;
+      margin-bottom:1.15em; font-size:1.1em;
+      box-shadow: 0 2px 6px #6749e625;
+      background: rgba(255,255,255,0.15);
+      color:#232946; outline:none;
+      transition: background .2s, box-shadow .2s;
+    }
+    input:focus, textarea:focus { background:rgba(255,255,255,0.21); box-shadow: 0 3px 10px #6749e650;}
+    button {
+      background: linear-gradient(90deg,#6a00ff 10%, #ffd600 85%);
+      color:#181325; font-weight:800; font-size:1.09em; border:none;
+      border-radius:14px; padding:0.88em 2.2em; box-shadow:0 2px 12px #23294650;
+      cursor:pointer; margin-top:1.2em; letter-spacing:0.01em;
+      transition: transform .12s, box-shadow .12s;
+    }
+    button:active { transform: scale(.97);}
+    .loading {
+      font-size: 1.18em; color: #ffd600; font-weight: 700;
+      margin: 2em 0 0;
+      letter-spacing:0.02em;
+      animation: pulse 1.2s infinite alternate;
+    }
+    @keyframes pulse { to { color: #fff; } }
+    .result {
+      display:none; margin-top:1.6em;
+      animation: fadein .8s;
+    }
+    .card {
+      background: rgba(255,255,255,0.25);
+      border-radius: 22px;
+      box-shadow: 0 8px 28px #6749e640, 0 1px 4px #23294624;
+      margin-bottom: 2em;
+      padding: 1.3em 1.2em 1em 1.2em;
+      position: relative;
+      border: 2.5px solid rgba(120,110,255,0.13);
+      overflow: hidden;
+    }
+    .glow {
+      position:absolute; top:-7%; left:-10%; right:-10%; bottom:-7%;
+      border-radius:28px;
+      background: radial-gradient(circle at 25% 20%, #ffd60022 0%, #6749e622 70%, transparent 100%);
+      pointer-events: none; z-index: 0;
+      animation: glimmer 2.5s infinite alternate;
+    }
+    @keyframes glimmer { 50% { opacity:0.74;} 100%{opacity:0.55;} }
+    .crazy-msg {
+      color: #ffd600; font-size: 1.15em; margin-bottom: 1.3em;
+      font-weight: 800; letter-spacing: .01em;
+      text-shadow: 1px 1px 9px #23294633;
+      z-index:1; position:relative;
+    }
+    .art-img {
+      max-width: 98%; border-radius:18px; box-shadow:0 2px 16px #6749e670;
+      margin-bottom:1em; margin-top:0.1em;
+      display: block; margin-left: auto; margin-right: auto;
+      transition: box-shadow .5s;
+      border: 2px solid #ffd60066;
+      animation: fadein 1.1s;
+    }
+    .gallery-link {
+      margin:1.6em auto 1.2em; display:inline-block;
+      color:#6a00ff; background:#ffd60025; border-radius:10px;
+      padding:0.35em 1.2em; text-decoration:none; font-weight: 700; font-size: 1.04em;
+      letter-spacing: 0.01em; box-shadow:0 2px 7px #ffd60030;
+      transition: background .18s;
+    }
+    .gallery-link:hover { background: #ffd60088; color:#232946;}
+    .btn-bar { margin:0.7em 0 0;}
+    .spin-btn, .share-btn {
+      margin:0.8em 0.6em 0 0.6em; font-size:1.09em;
+      padding: 0.67em 1.5em; font-weight:800;
+      background: linear-gradient(100deg,#ffd600 5%, #6a00ff 90%);
+      color:#232946; border:none; border-radius: 11px;
+      box-shadow:0 2px 7px #6749e644;
+      cursor:pointer; transition: background .17s, transform .13s;
+    }
+    .spin-btn:hover, .share-btn:hover { background:linear-gradient(85deg,#6a00ff 30%, #ffd600 95%);}
+    @media (max-width: 540px) {
+      .container { margin: 1.5vh 0 1.7vh 0; max-width:96vw; padding: 1.7em 0.3em;}
+      .card { padding: 1em 0.5em 1em 0.5em;}
+      .gallery-link { padding:0.24em 0.7em; }
+      h1 { font-size: 1.2em; }
+    }
   </style>
 </head>
 <body>
+  <canvas class="confetti-canvas" id="confetti"></canvas>
   <div class="container">
     <h1>Wish Sagar a Happy Birthday! 🎂</h1>
-    <form id="wish-form">
-      <label>Name:<input type="text" name="name" required></label>
-      <label>Your Wish:<textarea name="message" required rows="3"></textarea></label>
-      <button type="submit">Shift Reality!</button>
+    <div class="subtitle">Type a wish and trigger an AI-powered alternate reality surprise.<br>👇</div>
+    <form id="wish-form" autocomplete="off">
+      <label>Name:
+        <input type="text" name="name" autocomplete="off" required>
+      </label>
+      <label>Your Wish:
+        <textarea name="message" required rows="3"></textarea>
+      </label>
+      <button type="submit">Open The Portal</button>
     </form>
     <div class="loading" id="loading" style="display:none;">Reality is shifting... 🌀</div>
     <div class="result" id="result">
-      <div class="crazy-msg" id="crazyReply"></div>
-      <img id="aiImage" class="art-img" />
-      <a class="gallery-link" href="/gallery.html" target="_blank">🌈 Wall of Chaos</a>
-      <div>
-        <button class="spin-btn" onclick="window.location.reload()">Spin Again!</button>
-        <button class="share-btn" id="shareBtn">Share This!</button>
+      <div class="card">
+        <div class="glow"></div>
+        <div class="crazy-msg" id="crazyReply"></div>
+        <img id="aiImage" class="art-img" />
+      </div>
+      <a class="gallery-link" href="/gallery.html" target="_blank"><i class="fas fa-th-large"></i> Wall of Chaos</a>
+      <div class="btn-bar">
+        <button class="spin-btn" onclick="window.location.reload()"><i class="fas fa-random"></i> Spin Again</button>
+        <button class="share-btn" id="shareBtn"><i class="fas fa-share-alt"></i> Share This!</button>
       </div>
     </div>
   </div>
   <script>
-    // Emoji rain for "prophecy" effects:
-    function rainEmojis(emoji, count=32) {
+    // Confetti effect (very light, zero deps)
+    function launchConfetti() {
+      for (let i = 0; i < 130; i++) {
+        setTimeout(() => {
+          const confetti = document.createElement('div');
+          confetti.style.position = 'fixed';
+          confetti.style.left = Math.random() * 100 + 'vw';
+          confetti.style.top = '-4vh';
+          confetti.style.width = confetti.style.height = Math.random() > 0.5 ? '16px':'10px';
+          confetti.style.background = 'hsl('+(Math.random()*360)+',92%,60%)';
+          confetti.style.borderRadius = Math.random() > 0.4 ? '60%':'100%';
+          confetti.style.opacity = '0.92';
+          confetti.style.transform = 'rotate('+(Math.random()*360)+'deg)';
+          confetti.style.transition = 'top 2.0s cubic-bezier(.25,.76,.44,1.11)';
+          confetti.style.zIndex = 999;
+          document.body.appendChild(confetti);
+          setTimeout(() => { confetti.style.top = (85 + Math.random()*12) + 'vh'; }, 12);
+          setTimeout(() => { confetti.remove(); }, 2100);
+        }, i*10);
+      }
+    }
+
+    // Emoji rain for AI prophecy:
+    function rainEmojis(emoji, count = 32) {
       for (let i = 0; i < count; i++) {
         setTimeout(() => {
           const el = document.createElement('div');
@@ -48,13 +187,13 @@
           el.style.position = 'fixed';
           el.style.left = Math.random()*100 + 'vw';
           el.style.top = '-4vh';
-          el.style.fontSize = (2 + Math.random()*2.2) + 'em';
+          el.style.fontSize = (2 + Math.random()*2.1) + 'em';
           el.style.zIndex = 999;
-          el.style.transition = 'top 2.1s cubic-bezier(.36,.97,.32,1.11)';
+          el.style.transition = 'top 2.15s cubic-bezier(.32,.97,.44,1.12)';
           document.body.appendChild(el);
-          setTimeout(() => { el.style.top = (94 + Math.random()*4) + 'vh'; }, 18);
-          setTimeout(() => { el.remove(); }, 2300 + Math.random()*500);
-        }, i * 51);
+          setTimeout(() => { el.style.top = (94 + Math.random()*4) + 'vh'; }, 14);
+          setTimeout(() => { el.remove(); }, 2300 + Math.random()*430);
+        }, i * 48);
       }
     }
 
@@ -74,8 +213,9 @@
     document.getElementById('wish-form').addEventListener('submit', async function(e){
       e.preventDefault();
       document.getElementById('loading').style.display = '';
-      const formData = Object.fromEntries(new FormData(this).entries());
+      document.getElementById('wish-form').style.opacity = 0.6;
       try {
+        const formData = Object.fromEntries(new FormData(this).entries());
         const response = await fetch('https://n8n.budhathokisagar.com.np/webhook/wishme', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
@@ -84,15 +224,15 @@
         if (!response.ok) throw new Error('AI server problem');
         const res = await response.json();
 
-        // Hide loader, show result:
+        // Animate result:
         document.getElementById('loading').style.display = 'none';
-        document.getElementById('crazyReply').innerText = res.reply;
-        document.getElementById('aiImage').src = res.image;
         document.getElementById('result').style.display = '';
         document.getElementById('wish-form').style.display = 'none';
+        document.getElementById('crazyReply').innerText = res.reply;
+        document.getElementById('aiImage').src = res.image;
 
-        // Trigger emoji rain!
-        triggerEmojiRain(res.reply);
+        setTimeout(launchConfetti, 200);
+        setTimeout(()=>triggerEmojiRain(res.reply), 600);
 
         // Share button:
         document.getElementById('shareBtn').onclick = function() {
@@ -110,6 +250,7 @@
       } catch(err) {
         document.getElementById('loading').style.display = 'none';
         alert('Our AI penguins tripped! Please try again in a moment.');
+        document.getElementById('wish-form').style.opacity = 1;
       }
     });
   </script>
