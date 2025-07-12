@@ -86,24 +86,24 @@
 
         // Hide loader, show result:
         document.getElementById('loading').style.display = 'none';
-        document.getElementById('crazyReply').innerText = res.crazy_reply;
+        document.getElementById('crazyReply').innerText = res.reply;
         document.getElementById('aiImage').src = res.image;
         document.getElementById('result').style.display = '';
         document.getElementById('wish-form').style.display = 'none';
 
         // Trigger emoji rain!
-        triggerEmojiRain(res.crazy_reply);
+        triggerEmojiRain(res.reply);
 
         // Share button:
         document.getElementById('shareBtn').onclick = function() {
           if (navigator.share) {
             navigator.share({
               title: 'Sagar’s AI Birthday Wish Portal',
-              text: `My Sagar Birthday Prophecy: ${res.crazy_reply}`,
+              text: `My Sagar Birthday Prophecy: ${res.reply}`,
               url: window.location.href
             });
           } else {
-            navigator.clipboard.writeText(`Sagar Birthday Prophecy: ${res.crazy_reply}\n${window.location.href}`);
+            navigator.clipboard.writeText(`Sagar Birthday Prophecy: ${res.reply}\n${window.location.href}`);
             alert('Link copied! Share your prophecy!');
           }
         };
