@@ -29,11 +29,11 @@
       .then(data=>{
         let html = data.reverse().map(row=>`
           <div class="gallery-item">
-            <img src="${row.image || row.dalle_image_url}" />
+            <img src="${row['DALL-E image URL'] || row.dalle_image_url || row.image}" alt="AI Art" />
             <div class="gallery-details">
               <div class="name">${row.name}</div>
-              <div class="crazy">${row.reply}</div>
-              <div class="wish">“${row.message || row.original_wish}”</div>
+              <div class="crazy">${row.reply || row.crazy_reply}</div>
+              <div class="wish">“${row.wish || row.message}”</div>
               <div class="timestamp">${row.timestamp || ''}</div>
             </div>
           </div>
