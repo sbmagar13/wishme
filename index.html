@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Sagar’s Birthday Portal 🎉</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Fonts & Icons -->
+  <!-- Google Fonts for nice UI -->
   <link href="https://fonts.googleapis.com/css?family=Inter:wght@600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
   <style>
@@ -12,12 +12,10 @@
       min-height: 100vh; margin:0; padding:0;
       background: linear-gradient(135deg, #232946 0%, #836fff 100%);
       font-family: 'Inter', Arial, sans-serif;
-      transition: background 0.7s;
     }
-    .confetti-canvas { position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:9; }
     .container {
       max-width: 410px; margin: 7vh auto;
-      background: rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.09);
       border-radius: 32px;
       box-shadow: 0 10px 40px #23294680, 0 2px 16px #6749e670;
       backdrop-filter: blur(10px) saturate(1.4);
@@ -27,18 +25,8 @@
       animation: fadein 1s;
     }
     @keyframes fadein { from { opacity: 0; transform: scale(.97);} to { opacity: 1; transform: scale(1);} }
-    h1 {
-      font-weight: 800; font-size: 2em;
-      letter-spacing: 0.02em; color: #ffd600;
-      text-shadow: 2px 5px 14px #23294640, 0 1px 2px #fff4;
-      margin-bottom: .6em;
-    }
-    .subtitle {
-      color: #dfdfed;
-      font-size: 1.1em;
-      margin-bottom: 2em;
-      letter-spacing: .01em;
-    }
+    h1 { font-weight: 800; font-size: 2em; color: #ffd600; margin-bottom: .5em; }
+    .subtitle { color: #dfdfed; font-size: 1.1em; margin-bottom: 2em;}
     form label { display:block; margin:1.35em 0 0.5em; font-weight:700; color:#fff; }
     input, textarea {
       width: 93%; padding: 0.72em 1em;
@@ -47,28 +35,17 @@
       box-shadow: 0 2px 6px #6749e625;
       background: rgba(255,255,255,0.15);
       color:#232946; outline:none;
-      transition: background .2s, box-shadow .2s;
     }
     input:focus, textarea:focus { background:rgba(255,255,255,0.21); box-shadow: 0 3px 10px #6749e650;}
     button {
       background: linear-gradient(90deg,#6a00ff 10%, #ffd600 85%);
       color:#181325; font-weight:800; font-size:1.09em; border:none;
       border-radius:14px; padding:0.88em 2.2em; box-shadow:0 2px 12px #23294650;
-      cursor:pointer; margin-top:1.2em; letter-spacing:0.01em;
-      transition: transform .12s, box-shadow .12s;
+      cursor:pointer; margin-top:1.2em;
     }
-    button:active { transform: scale(.97);}
-    .loading {
-      font-size: 1.18em; color: #ffd600; font-weight: 700;
-      margin: 2em 0 0;
-      letter-spacing:0.02em;
-      animation: pulse 1.2s infinite alternate;
-    }
+    .loading { font-size: 1.18em; color: #ffd600; font-weight: 700; margin: 2em 0 0; animation: pulse 1.2s infinite alternate;}
     @keyframes pulse { to { color: #fff; } }
-    .result {
-      display:none; margin-top:1.6em;
-      animation: fadein .8s;
-    }
+    .result { display:none; margin-top:1.6em; animation: fadein .8s;}
     .card {
       background: rgba(255,255,255,0.25);
       border-radius: 22px;
@@ -100,13 +77,14 @@
       transition: box-shadow .5s;
       border: 2px solid #ffd60066;
       animation: fadein 1.1s;
+      background: #fff;
+      min-height: 140px;
     }
     .gallery-link {
       margin:1.6em auto 1.2em; display:inline-block;
       color:#6a00ff; background:#ffd60025; border-radius:10px;
       padding:0.35em 1.2em; text-decoration:none; font-weight: 700; font-size: 1.04em;
       letter-spacing: 0.01em; box-shadow:0 2px 7px #ffd60030;
-      transition: background .18s;
     }
     .gallery-link:hover { background: #ffd60088; color:#232946;}
     .btn-bar { margin:0.7em 0 0;}
@@ -116,7 +94,7 @@
       background: linear-gradient(100deg,#ffd600 5%, #6a00ff 90%);
       color:#232946; border:none; border-radius: 11px;
       box-shadow:0 2px 7px #6749e644;
-      cursor:pointer; transition: background .17s, transform .13s;
+      cursor:pointer;
     }
     .spin-btn:hover, .share-btn:hover { background:linear-gradient(85deg,#6a00ff 30%, #ffd600 95%);}
     @media (max-width: 540px) {
@@ -128,7 +106,6 @@
   </style>
 </head>
 <body>
-  <canvas class="confetti-canvas" id="confetti"></canvas>
   <div class="container">
     <h1>Wish Sagar a Happy Birthday! 🎂</h1>
     <div class="subtitle">Type a wish and trigger an AI-powered alternate reality surprise.<br>👇</div>
@@ -146,7 +123,7 @@
       <div class="card">
         <div class="glow"></div>
         <div class="crazy-msg" id="crazyReply"></div>
-        <img id="aiImage" class="art-img" />
+        <img id="aiImage" class="art-img" alt="Your Alternate Reality" />
       </div>
       <a class="gallery-link" href="/gallery.html" target="_blank"><i class="fas fa-th-large"></i> Wall of Chaos</a>
       <div class="btn-bar">
@@ -156,7 +133,35 @@
     </div>
   </div>
   <script>
-    // Confetti effect (very light, zero deps)
+    // Emoji rain for AI prophecy:
+    function rainEmojis(emoji, count = 32) {
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+          const el = document.createElement('div');
+          el.textContent = emoji;
+          el.style.position = 'fixed';
+          el.style.left = Math.random()*100 + 'vw';
+          el.style.top = '-4vh';
+          el.style.fontSize = (2 + Math.random()*2.1) + 'em';
+          el.style.zIndex = 999;
+          el.style.transition = 'top 2.15s cubic-bezier(.32,.97,.44,1.12)';
+          document.body.appendChild(el);
+          setTimeout(() => { el.style.top = (94 + Math.random()*4) + 'vh'; }, 14);
+          setTimeout(() => { el.remove(); }, 2300 + Math.random()*430);
+        }, i * 48);
+      }
+    }
+    function triggerEmojiRain(reply) {
+      if(/momo|dumpling/i.test(reply)) rainEmojis('🥟');
+      if(/goat|sheep/i.test(reply)) rainEmojis('🐐');
+      if(/penguin/i.test(reply)) rainEmojis('🐧');
+      if(/cake|birthday/i.test(reply)) rainEmojis('🍰');
+      if(/rainbow|magic/i.test(reply)) rainEmojis('🌈');
+      if(/balloon/i.test(reply)) rainEmojis('🎈');
+      if(/party|confetti/i.test(reply)) rainEmojis('🎉');
+      if(/chicken/i.test(reply)) rainEmojis('🐔');
+      // ...add more as needed!
+    }
     function launchConfetti() {
       for (let i = 0; i < 130; i++) {
         setTimeout(() => {
@@ -177,39 +182,6 @@
         }, i*10);
       }
     }
-
-    // Emoji rain for AI prophecy:
-    function rainEmojis(emoji, count = 32) {
-      for (let i = 0; i < count; i++) {
-        setTimeout(() => {
-          const el = document.createElement('div');
-          el.textContent = emoji;
-          el.style.position = 'fixed';
-          el.style.left = Math.random()*100 + 'vw';
-          el.style.top = '-4vh';
-          el.style.fontSize = (2 + Math.random()*2.1) + 'em';
-          el.style.zIndex = 999;
-          el.style.transition = 'top 2.15s cubic-bezier(.32,.97,.44,1.12)';
-          document.body.appendChild(el);
-          setTimeout(() => { el.style.top = (94 + Math.random()*4) + 'vh'; }, 14);
-          setTimeout(() => { el.remove(); }, 2300 + Math.random()*430);
-        }, i * 48);
-      }
-    }
-
-    // Detect relevant emoji trigger from reply:
-    function triggerEmojiRain(reply) {
-      if(/momo|dumpling/i.test(reply)) rainEmojis('🥟');
-      if(/goat|sheep/i.test(reply)) rainEmojis('🐐');
-      if(/penguin/i.test(reply)) rainEmojis('🐧');
-      if(/cake|birthday/i.test(reply)) rainEmojis('🍰');
-      if(/rainbow|magic/i.test(reply)) rainEmojis('🌈');
-      if(/balloon/i.test(reply)) rainEmojis('🎈');
-      if(/party|confetti/i.test(reply)) rainEmojis('🎉');
-      if(/chicken/i.test(reply)) rainEmojis('🐔');
-      // ...add more as needed!
-    }
-
     document.getElementById('wish-form').addEventListener('submit', async function(e){
       e.preventDefault();
       document.getElementById('loading').style.display = '';
@@ -223,13 +195,33 @@
         });
         if (!response.ok) throw new Error('AI server problem');
         const res = await response.json();
+        // Debug: log the image URL
+        console.log('AI image URL:', res.image);
 
         // Animate result:
         document.getElementById('loading').style.display = 'none';
         document.getElementById('result').style.display = '';
         document.getElementById('wish-form').style.display = 'none';
         document.getElementById('crazyReply').innerText = res.reply;
-        document.getElementById('aiImage').src = res.image;
+
+        // Defensive: clear image, then set after small delay
+        let img = document.getElementById('aiImage');
+        img.style.display = 'block';
+        img.src = ''; // reset
+        setTimeout(() => {
+          img.src = res.image;
+        }, 100);
+
+        img.onerror = function() {
+          img.style.display = 'none';
+          let msg = document.createElement('div');
+          msg.style.color = '#ff4a66';
+          msg.style.marginTop = '1em';
+          msg.style.fontWeight = 'bold';
+          msg.innerText = 'Could not load image. Click here to view or download it.';
+          msg.onclick = ()=>window.open(res.image, "_blank");
+          img.parentNode.appendChild(msg);
+        };
 
         setTimeout(launchConfetti, 200);
         setTimeout(()=>triggerEmojiRain(res.reply), 600);
