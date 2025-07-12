@@ -204,14 +204,22 @@
         document.getElementById('wish-form').style.display = 'none';
         document.getElementById('crazyReply').innerText = res.reply;
 
-        // Defensive: clear image, then set after small delay
         let img = document.getElementById('aiImage');
         img.style.display = 'block';
+        img.onerror = function() {
+          img.style.display = 'none';
+          alert('Could not load image! Open here: ' + res.image);
+        };
+        img.onload = function() {
+          img.style.display = 'block';
+          console.log('AI Art loaded!');
+        };
         img.src = ''; // reset
-        setTimeout(() => {
-          img.src = res.image;
-        }, 100);
-
+        setTimeout(() => { img.src = res.image; }, 100);
+        
+        document.getElementById('result').style.display = '';
+        document.getElementById('wish-form').style.display = 'none';
+        
         img.onerror = function() {
           img.style.display = 'none';
           let msg = document.createElement('div');
