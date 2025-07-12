@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sagar’s Wall of Chaos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { background: #17132a; color:#fff; font-family:sans-serif; margin:0; }
+    .gallery-wrap { max-width: 660px; margin: 2.8em auto 2em; }
+    h1 { color: #ffd600; margin-bottom:0.6em;}
+    .gallery-item { background:#fff6; border-radius:12px; margin:1.1em 0; padding:1.4em 1em 1em 1em; box-shadow:0 2px 16px #0005; }
+    .gallery-item img { max-width: 125px; float:left; margin-right: 1.1em; border-radius:10px; box-shadow:0 1px 7px #ffd60080;}
+    .gallery-details { overflow:hidden;}
+    .name { font-weight:bold; color:#6a00ff; margin-bottom:0.2em; }
+    .crazy { font-size:1.13em; color:#ffd600; margin:0.4em 0 0.7em 0; }
+    .wish { font-style:italic; color:#dfd; margin-bottom:0.4em; font-size:1em; }
+    .timestamp { color:#bbb; font-size:0.88em; margin-top:0.5em; }
+  </style>
+</head>
+<body>
+  <div class="gallery-wrap">
+    <h1>🌈 Sagar’s Wall of Chaos</h1>
+    <div id="gallery"></div>
+  </div>
+  <script>
+    // Change this to your SheetDB API URL!
+    fetch('https://sheetdb.io/api/v1/hvptfwg8rkwqg')
+      .then(r=>r.json())
+      .then(data=>{
+        let html = data.reverse().map(row=>`
+          <div class="gallery-item">
+            <img src="${row.image || row.dalle_image_url}" />
+            <div class="gallery-details">
+              <div class="name">${row.name}</div>
+              <div class="crazy">${row.crazy_reply}</div>
+              <div class="wish">“${row.message || row.original_wish}”</div>
+              <div class="timestamp">${row.timestamp || ''}</div>
+            </div>
+          </div>
+        `).join('');
+        document.getElementById('gallery').innerHTML = html || '<div>No wishes yet—be the first to create chaos!</div>';
+      });
+  </script>
+</body>
+</html>
