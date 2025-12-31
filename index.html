@@ -1987,6 +1987,167 @@
             50% { transform: scale(1.2) rotate(20deg); opacity: 1; }
             100% { transform: scale(0.8) translateY(-150px) rotate(-20deg); opacity: 0; }
         }
+
+        /* ============ SCRATCH CARD MODAL ============ */
+        .scratch-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5,5,10,0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .scratch-modal.active {
+            display: flex;
+        }
+
+        .scratch-modal-content {
+            background: linear-gradient(145deg, rgba(20,20,25,0.98), rgba(10,10,15,0.99));
+            border: 1px solid rgba(212,175,55,0.25);
+            border-radius: 24px;
+            padding: 30px;
+            text-align: center;
+            max-width: 340px;
+            width: 100%;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 40px rgba(212,175,55,0.1);
+            animation: modalSlideIn 0.4s var(--ease-out-expo);
+        }
+
+        @keyframes modalSlideIn {
+            from { 
+                opacity: 0; 
+                transform: scale(0.9) translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1) translateY(0); 
+            }
+        }
+
+        .scratch-modal-header {
+            margin-bottom: 20px;
+        }
+
+        .scratch-modal-icon {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 10px;
+            animation: iconBounce 1s ease infinite;
+        }
+
+        @keyframes iconBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .scratch-modal-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .scratch-modal-header p {
+            font-size: 12px;
+            color: rgba(212,175,55,0.8);
+            font-style: italic;
+        }
+
+        .scratch-area {
+            position: relative;
+            width: 100%;
+            height: 140px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: linear-gradient(145deg, rgba(15,15,20,0.8), rgba(10,10,15,0.9));
+            border: 1px solid rgba(212,175,55,0.15);
+        }
+
+        #scratch-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: grab;
+            touch-action: none;
+            z-index: 2;
+            border-radius: 16px;
+        }
+
+        #scratch-canvas:active {
+            cursor: grabbing;
+        }
+
+        .scratch-reveal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            opacity: 0.3;
+            transition: opacity 0.5s ease, transform 0.5s var(--ease-spring);
+            transform: scale(0.9);
+        }
+
+        .scratch-reveal.revealed {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .scratch-emoji {
+            font-size: 40px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 2px 10px rgba(212,175,55,0.4));
+        }
+
+        .scratch-message {
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            color: #d4af37;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .scratch-message-en {
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .scratch-hint {
+            margin-top: 15px;
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+            transition: opacity 0.3s ease;
+        }
+
+        .scratch-hint.hidden {
+            opacity: 0;
+        }
+
+        .scratch-close {
+            margin-top: 20px;
+        }
+
+        /* Parallax elements need base transform */
+        .year, .photo-frame, #stars {
+            transition: transform 0.1s ease-out;
+        }
     </style>
 </head>
 <body>
@@ -2079,12 +2240,12 @@
             </div>
         </div>
 
-        <!-- Right Top - RICKROLL 😈 -->
-        <div class="floating-card float-right-top" onclick="window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank')">
+        <!-- Right Top - Secret Message Scratch -->
+        <div class="floating-card float-right-top" onclick="openScratchModal()">
             <div class="float-card-inner">
-                <div class="float-card-icon">💝</div>
-                <div class="float-card-title">Secret Gift</div>
-                <div class="float-card-desc">Special message for you</div>
+                <div class="float-card-icon">🤫</div>
+                <div class="float-card-title">Secret</div>
+                <div class="float-card-desc">A message just for you</div>
             </div>
         </div>
 
@@ -2329,6 +2490,27 @@
         </div>
     </div>
 
+    <!-- Scratch Card Modal -->
+    <div class="scratch-modal" id="scratch-modal" onclick="if(event.target === this) closeScratchModal()">
+        <div class="scratch-modal-content">
+            <div class="scratch-modal-header">
+                <span class="scratch-modal-icon">🤫</span>
+                <h3>Secret Message</h3>
+                <p>Kasailai nabhannu hai...</p>
+            </div>
+            <div class="scratch-area">
+                <canvas id="scratch-canvas"></canvas>
+                <div class="scratch-reveal">
+                    <div class="scratch-emoji" id="scratch-emoji">💫</div>
+                    <div class="scratch-message" id="scratch-message">Loading...</div>
+                    <div class="scratch-message-en" id="scratch-message-en"></div>
+                </div>
+            </div>
+            <div class="scratch-hint" id="scratch-hint">☝️ Scratch to reveal</div>
+            <button class="close-modal scratch-close" id="scratch-close-btn" onclick="closeScratchModal()">Close</button>
+        </div>
+    </div>
+
     <!-- Achievement Toast -->
     <div class="achievement-toast" id="achievement-toast">
         <span>🏆</span>
@@ -2509,6 +2691,316 @@
             }, 200);
         }
 
+        // ============ PARALLAX TILT (Mobile) ============
+        let tiltEnabled = true;
+        const tiltElements = [];
+        
+        function initParallaxTilt() {
+            // Elements to apply parallax effect
+            const yearEl = document.querySelector('.year');
+            const photoEl = document.querySelector('.photo-frame');
+            const starsEl = document.getElementById('stars');
+            
+            if (yearEl) tiltElements.push({ el: yearEl, intensity: 20 });
+            if (photoEl) tiltElements.push({ el: photoEl, intensity: 15 });
+            if (starsEl) tiltElements.push({ el: starsEl, intensity: -10 }); // Opposite direction
+            
+            // Device orientation for mobile
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener('deviceorientation', handleTilt, { passive: true });
+            }
+            
+            // Mouse movement for desktop
+            document.addEventListener('mousemove', handleMouseTilt, { passive: true });
+        }
+        
+        const handleTilt = throttle((e) => {
+            if (!tiltEnabled || document.getElementById('main-screen').classList.contains('hidden')) return;
+            
+            const gamma = e.gamma || 0; // Left/Right tilt (-90 to 90)
+            const beta = e.beta || 0;   // Front/Back tilt (-180 to 180)
+            
+            // Clamp values
+            const tiltX = Math.max(-25, Math.min(25, gamma));
+            const tiltY = Math.max(-25, Math.min(25, beta - 45)); // Offset for natural holding
+            
+            applyTilt(tiltX, tiltY);
+        }, 16);
+        
+        const handleMouseTilt = throttle((e) => {
+            if (!tiltEnabled || document.getElementById('main-screen').classList.contains('hidden')) return;
+            
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            
+            const tiltX = ((e.clientX - centerX) / centerX) * 15;
+            const tiltY = ((e.clientY - centerY) / centerY) * 15;
+            
+            applyTilt(tiltX, tiltY);
+        }, 16);
+        
+        function applyTilt(tiltX, tiltY) {
+            tiltElements.forEach(({ el, intensity }) => {
+                const moveX = (tiltX / 25) * intensity;
+                const moveY = (tiltY / 25) * intensity;
+                el.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+            });
+        }
+
+        // ============ SCRATCH CARD ============
+        let scratchCanvas, scratchCtx;
+        let isScratching = false;
+        let scratchPercent = 0;
+        let scratchRevealed = false;
+        
+        function getScratchMessages() {
+            return [
+                // Love/Feelings - Intimate (timi)
+                { emoji: "🤫", text: "Kasailai nabhanu... timi ekdam cute chhau!", en: "Don't tell anyone... you're really cute!" },
+                { emoji: "😳", text: "I like you, " + userName + "... as a friend 😅", en: "Friendzone activated!" },
+                { emoji: "🙈", text: userName + ", timi mero favorite hau... shhh!", en: "You're my favorite... shhh!" },
+                { emoji: "🤭", text: "Yo secret ho: Timi bhanda ramro koi chhaina!", en: "Secret: No one's better than you!" },
+                { emoji: "💀", text: "Tero charm le mero phone hang bhayo", en: "Your charm crashed my phone" },
+                { emoji: "👀", text: "Maine dekh liya... timi secretly awesome chhau!", en: "You're secretly awesome!" },
+                { emoji: "🦆", text: "Duck duck duck... " + userName + " is stuck (in my mind)!", en: "Rent free in my head!" },
+                { emoji: "💝", text: userName + ", timi sach ma special chhau!", en: "You're truly special!" },
+                { emoji: "✨", text: "Kasailai nabhannu: Timi world ko best human hau", en: "You're the world's best human" },
+                { emoji: "🌟", text: "Secret confession: Timro smile le din banaidhinchha", en: "Your smile makes my day" },
+                { emoji: "💕", text: "Yo beech ma rahosh: I appreciate you, " + userName, en: "Between us: I appreciate you" },
+                { emoji: "🥺", text: "Real talk: Timi jasto manchhe rare ho", en: "People like you are rare" },
+                { emoji: "🍕", text: "Timi pizza bhanda ni important chhau... that's huge!", en: "You're more important than pizza!" },
+                { emoji: "😴", text: "3 AM thoughts: " + userName + " kasto cha hola?", en: "3 AM thoughts about you!" },
+                { emoji: "📱", text: "Browser history clear garchu but tero yaad clear hudaina", en: "Can't clear your memory" },
+                
+                // Respectful/Formal (tapai)
+                { emoji: "😏", text: "Nepal Cyber Bureau wants to know: Tapai kina eti cute?", en: "Why so cute?" },
+                { emoji: "🤡", text: "Plot twist: Yo message padhne sabai handsome/beautiful hun!", en: "Everyone reading this is beautiful!" },
+                { emoji: "🤓", text: "According to science: " + userName + " = certified legend", en: "You're a legend!" },
+                
+                // ========== SAGAR'S FACTS ==========
+                // Music Artists & Songs
+                { emoji: "🎤", text: "Sagar ko secret: Taylor Swift is the GOAT! 🐐", en: "Swiftie detected!" },
+                { emoji: "💃", text: "Fun fact: Sagar le Shake It Off sunera code garchan!", en: "Coding with Taylor Swift vibes" },
+                { emoji: "👑", text: "Sagar says: Shah Rukh Khan = King of Bollywood, no debate!", en: "SRK forever!" },
+                { emoji: "🎬", text: "Sagar ko favorite dialogue: 'Bade bade deshon mein...'", en: "SRK fan moment" },
+                { emoji: "🌈", text: "Imagine all the people... Sagar ko fav song by John Lennon ✌️", en: "Peace & love vibes" },
+                { emoji: "🎸", text: "November Rain bajyo bhane Sagar ko mood instantly better!", en: "Guns N' Roses fan!" },
+                { emoji: "🇳🇵", text: "Sundarta ko... Sabin Rai sunnu paryo, Sagar ko heart song!", en: "Sabin Rai appreciation" },
+                { emoji: "💀", text: "Die With a Smile - Sagar ko current repeat song! 🔁", en: "Lady Gaga x Bruno Mars!" },
+                { emoji: "💖", text: "Soul Provider by Michael Bolton = Sagar ko romantic mood", en: "80s ballad lover" },
+                { emoji: "🙏", text: "H.O.L.Y. by Florida Georgia Line - Sagar gets emotional!", en: "Country music secret" },
+                { emoji: "🚗", text: "Fast Car by Tracy Chapman - Sagar ko road trip anthem!", en: "Classic vibes" },
+                { emoji: "👑", text: "Is this real life? Bohemian Rhapsody = Sagar ko all-time fav!", en: "Queen forever!" },
+                { emoji: "🏔️", text: "Sangai Bachauna - Monkey Temple! Sagar ko Nepali rock love", en: "Nepali rock fan!" },
+                
+                // Movies & Series
+                { emoji: "🎬", text: "Sagar ko movie night essential: Pulp Fiction! 🍔", en: "Tarantino fan!" },
+                { emoji: "🇰🇷", text: "Parasite hernu bhayo? Sagar le 5 choti heryo!", en: "Bong Joon-ho masterpiece" },
+                { emoji: "⏰", text: "Dark series = Sagar ko brain twisted forever! 🌀", en: "Time travel confusion" },
+                { emoji: "👽", text: "3 Body Problem - Sagar says mind = blown! 🤯", en: "Sci-fi nerd alert" },
+                { emoji: "😱", text: "FROM series - Sagar daraunu bhayo tara can't stop watching!", en: "Horror addict" },
+                { emoji: "🏝️", text: "LOST - Sagar ajhai pani theories discuss garcha!", en: "4 8 15 16 23 42" },
+                { emoji: "👻", text: "The Sixth Sense - I see dead people... Sagar ko fav twist!", en: "M. Night Shyamalan fan" },
+                { emoji: "🎓", text: "3 Idiots - 'Aal izz well' is Sagar ko life motto!", en: "Aamir Khan classic" },
+                
+                // Tech & Interests
+                { emoji: "🐍", text: "Sagar ko first love: Python programming! 🐍❤️", en: "Code with Python" },
+                { emoji: "☁️", text: "AWS, DevOps, CloudOps - Sagar ko professional crush!", en: "Cloud nerd!" },
+                { emoji: "🔧", text: "Sagar believes: Open source = Future! 🌍", en: "FOSS advocate" },
+                { emoji: "🤖", text: "AI explore garna Sagar hamesha ready! 🚀", en: "AI enthusiast" },
+                { emoji: "📝", text: "Blogging is therapy - Sagar ko secret hobby!", en: "Writer at heart" },
+                { emoji: "💻", text: "Late night coding sessions = Sagar ko happy place", en: "Developer life" },
+                { emoji: "🚀", text: "Sagar ko dream: Build something that helps millions!", en: "Big dreams!" },
+                
+                // Mixed Fun - Love feelings (timi)
+                { emoji: "🎵", text: userName + ", tero lagi Sagar le playlist banaidela?", en: "Personal playlist offer!" },
+                { emoji: "🍿", text: "Movie night with " + userName + "? Sagar ready cha!", en: "Movie date proposal" },
+                { emoji: "☕", text: "Coffee, code, ra " + userName + " - Sagar ko perfect day!", en: "Perfect combo" },
+            ];
+        }
+        
+        function openScratchModal() {
+            vibrate(30);
+            playPop();
+            document.getElementById('scratch-modal').classList.add('active');
+            
+            // Reset and initialize scratch card
+            scratchRevealed = false;
+            scratchPercent = 0;
+            
+            // Reset UI
+            const canvas = document.getElementById('scratch-canvas');
+            const reveal = document.querySelector('.scratch-reveal');
+            const hint = document.getElementById('scratch-hint');
+            
+            if (canvas) canvas.style.opacity = '1';
+            if (reveal) reveal.classList.remove('revealed');
+            if (hint) hint.classList.remove('hidden');
+            
+            // Small delay to let modal render, then init
+            setTimeout(() => {
+                initScratchCard();
+            }, 100);
+            
+            showAchievement("Ke hola yo secret? 🤔");
+        }
+
+        function closeScratchModal() {
+            document.getElementById('scratch-modal').classList.remove('active');
+        }
+        
+        function initScratchCard() {
+            scratchCanvas = document.getElementById('scratch-canvas');
+            if (!scratchCanvas) return;
+            
+            scratchCtx = scratchCanvas.getContext('2d');
+            
+            // Set canvas size
+            const rect = scratchCanvas.getBoundingClientRect();
+            scratchCanvas.width = rect.width * 2; // Higher res
+            scratchCanvas.height = rect.height * 2;
+            scratchCtx.scale(2, 2);
+            
+            // Reset composite operation
+            scratchCtx.globalCompositeOperation = 'source-over';
+            
+            // Draw scratch layer
+            drawScratchLayer();
+            
+            // Pick random message
+            const messages = getScratchMessages();
+            const msg = messages[Math.floor(Math.random() * messages.length)];
+            document.getElementById('scratch-emoji').textContent = msg.emoji;
+            document.getElementById('scratch-message').textContent = msg.text;
+            document.getElementById('scratch-message-en').textContent = msg.en;
+            
+            // Remove old listeners first (prevent duplicates)
+            scratchCanvas.removeEventListener('mousedown', startScratch);
+            scratchCanvas.removeEventListener('mousemove', scratch);
+            scratchCanvas.removeEventListener('mouseup', endScratch);
+            scratchCanvas.removeEventListener('mouseleave', endScratch);
+            scratchCanvas.removeEventListener('touchstart', startScratch);
+            scratchCanvas.removeEventListener('touchmove', scratch);
+            scratchCanvas.removeEventListener('touchend', endScratch);
+            
+            // Add event listeners
+            scratchCanvas.addEventListener('mousedown', startScratch);
+            scratchCanvas.addEventListener('mousemove', scratch);
+            scratchCanvas.addEventListener('mouseup', endScratch);
+            scratchCanvas.addEventListener('mouseleave', endScratch);
+            
+            scratchCanvas.addEventListener('touchstart', startScratch, { passive: false });
+            scratchCanvas.addEventListener('touchmove', scratch, { passive: false });
+            scratchCanvas.addEventListener('touchend', endScratch);
+        }
+        
+        function drawScratchLayer() {
+            const width = scratchCanvas.width / 2;
+            const height = scratchCanvas.height / 2;
+            
+            // Clear first
+            scratchCtx.clearRect(0, 0, width, height);
+            
+            // Golden gradient background
+            const gradient = scratchCtx.createLinearGradient(0, 0, width, height);
+            gradient.addColorStop(0, '#b8860b');
+            gradient.addColorStop(0.5, '#d4af37');
+            gradient.addColorStop(1, '#f4e4bc');
+            
+            scratchCtx.fillStyle = gradient;
+            scratchCtx.fillRect(0, 0, width, height);
+            
+            // Add shimmer pattern
+            scratchCtx.fillStyle = 'rgba(255,255,255,0.15)';
+            for (let i = 0; i < 25; i++) {
+                const x = Math.random() * width;
+                const y = Math.random() * height;
+                scratchCtx.beginPath();
+                scratchCtx.arc(x, y, Math.random() * 8 + 3, 0, Math.PI * 2);
+                scratchCtx.fill();
+            }
+            
+            // Text
+            scratchCtx.fillStyle = 'rgba(0,0,0,0.5)';
+            scratchCtx.font = 'bold 16px Poppins, sans-serif';
+            scratchCtx.textAlign = 'center';
+            scratchCtx.fillText('🤫 SECRET 🤫', width / 2, height / 2 - 8);
+            scratchCtx.font = '11px Poppins, sans-serif';
+            scratchCtx.fillText('Scratch to reveal...', width / 2, height / 2 + 12);
+        }
+        
+        function startScratch(e) {
+            e.preventDefault();
+            isScratching = true;
+            scratch(e);
+        }
+        
+        function scratch(e) {
+            if (!isScratching || scratchRevealed) return;
+            e.preventDefault();
+            
+            const rect = scratchCanvas.getBoundingClientRect();
+            let x, y;
+            
+            if (e.touches) {
+                x = e.touches[0].clientX - rect.left;
+                y = e.touches[0].clientY - rect.top;
+            } else {
+                x = e.clientX - rect.left;
+                y = e.clientY - rect.top;
+            }
+            
+            // Erase
+            scratchCtx.globalCompositeOperation = 'destination-out';
+            scratchCtx.beginPath();
+            scratchCtx.arc(x, y, 20, 0, Math.PI * 2);
+            scratchCtx.fill();
+            
+            // Check progress
+            checkScratchProgress();
+        }
+        
+        function endScratch() {
+            isScratching = false;
+        }
+        
+        function checkScratchProgress() {
+            const imageData = scratchCtx.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height);
+            const pixels = imageData.data;
+            let transparent = 0;
+            
+            for (let i = 3; i < pixels.length; i += 4) {
+                if (pixels[i] < 128) transparent++;
+            }
+            
+            scratchPercent = (transparent / (pixels.length / 4)) * 100;
+            
+            if (scratchPercent > 40 && !scratchRevealed) {
+                revealScratchCard();
+            }
+        }
+        
+        function revealScratchCard() {
+            scratchRevealed = true;
+            vibrate([50, 30, 100]);
+            playMagicChime();
+            
+            // Fade out canvas
+            scratchCanvas.style.transition = 'opacity 0.5s ease';
+            scratchCanvas.style.opacity = '0';
+            
+            // Hide hint
+            const hint = document.getElementById('scratch-hint');
+            if (hint) hint.classList.add('hidden');
+            
+            // Show message with animation
+            document.querySelector('.scratch-reveal').classList.add('revealed');
+            
+            // Celebration
+            createConfetti(30);
+            showAchievement("Secret Unlocked! 🤫 Kasailai nabhanu!");
+        }
+
         // ============ HAPTIC FEEDBACK (Mobile) ============
         function vibrate(pattern = 50) {
             if (navigator.vibrate) {
@@ -2526,8 +3018,13 @@
             playPop();
             
             const year = document.querySelector('.year');
+            tiltEnabled = false; // Temporarily disable parallax
+            year.style.transition = 'transform 0.15s var(--ease-spring)';
             year.style.transform = 'scale(1.1)';
-            setTimeout(() => year.style.transform = 'scale(1)', 150);
+            setTimeout(() => {
+                year.style.transform = '';
+                setTimeout(() => tiltEnabled = true, 100);
+            }, 150);
             
             if (yearTapCount === 5) {
                 showAchievement("2026 प्रेमी! 💕");
@@ -2549,8 +3046,13 @@
             playPop();
             
             const photo = document.querySelector('.photo-container');
+            tiltEnabled = false; // Temporarily disable parallax
+            photo.style.transition = 'transform 0.2s var(--ease-spring)';
             photo.style.transform = 'scale(1.1) rotate(5deg)';
-            setTimeout(() => photo.style.transform = 'scale(1) rotate(0deg)', 200);
+            setTimeout(() => {
+                photo.style.transform = '';
+                setTimeout(() => tiltEnabled = true, 100);
+            }, 200);
             
             if (photoTapCount === 3) {
                 showAchievement("Photo lover! 📸");
@@ -2690,6 +3192,7 @@
             initPullConfetti();
             initDoubleTapHeart();
             startSurpriseMessages();
+            initParallaxTilt();
             
             // Initial celebration
             setTimeout(() => {
