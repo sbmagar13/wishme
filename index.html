@@ -609,25 +609,25 @@
             background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 18px;
-            padding: 16px 20px;
+            border-radius: 16px;
+            padding: 12px 14px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
+            gap: 3px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.3), 
                         inset 0 1px 0 rgba(255,255,255,0.1);
-            min-width: 100px;
+            min-width: 85px;
         }
 
         .float-card-icon {
-            font-size: 36px;
+            font-size: 28px;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }
 
         .float-card-title {
             font-family: 'Poppins', sans-serif;
-            font-size: 14px;
+            font-size: 11px;
             font-weight: 700;
             color: #fff;
             text-transform: uppercase;
@@ -635,16 +635,16 @@
         }
 
         .float-card-desc {
-            font-size: 10px;
+            font-size: 9px;
             color: rgba(255,255,255,0.7);
             text-align: center;
-            max-width: 90px;
+            max-width: 80px;
             line-height: 1.3;
         }
 
         .float-timer {
             font-family: 'Poppins', sans-serif;
-            font-size: 16px;
+            font-size: 13px;
             font-weight: 800;
             background: linear-gradient(180deg, #f5af19, #f12711);
             -webkit-background-clip: text;
@@ -652,10 +652,10 @@
             background-clip: text;
         }
 
-        /* Positions - More visible */
+        /* Positions - Better organized */
         .float-left-top {
-            left: -45px;
-            top: 12%;
+            left: -50px;
+            top: 5%;
             transform: rotate(-12deg);
             animation-delay: 0s;
         }
@@ -666,8 +666,8 @@
         }
 
         .float-right-mid {
-            right: -45px;
-            top: 38%;
+            right: -50px;
+            top: 45%;
             transform: rotate(12deg);
             animation-delay: 0.5s;
         }
@@ -678,8 +678,8 @@
         }
 
         .float-left-bottom {
-            left: -40px;
-            bottom: 22%;
+            left: -50px;
+            bottom: 15%;
             transform: rotate(-8deg);
             animation-delay: 1s;
         }
@@ -690,8 +690,8 @@
         }
 
         .float-right-top {
-            right: -40px;
-            top: 10%;
+            right: -50px;
+            top: 5%;
             transform: rotate(10deg);
             animation-delay: 1.5s;
         }
@@ -702,8 +702,8 @@
         }
 
         .float-right-bottom {
-            right: -35px;
-            bottom: 18%;
+            right: -50px;
+            bottom: 15%;
             transform: rotate(6deg);
             animation-delay: 2s;
         }
@@ -727,6 +727,19 @@
         .float-left-bottom { --rot: -8deg; }
         .float-right-top { --rot: 10deg; }
         .float-right-bottom { --rot: 6deg; }
+
+        .float-left-mid {
+            left: -50px;
+            top: 35%;
+            transform: rotate(-10deg);
+            animation-delay: 2.5s;
+            --rot: -10deg;
+        }
+
+        .float-left-mid:hover {
+            left: 10px;
+            transform: rotate(0deg) scale(1.05);
+        }
 
         /* Different card colors */
         .float-left-top .float-card-inner {
@@ -754,12 +767,22 @@
             border-color: rgba(241,196,15,0.5);
         }
 
+        .float-left-mid .float-card-inner {
+            background: linear-gradient(135deg, rgba(192,57,43,0.4), rgba(231,76,60,0.2));
+            border-color: rgba(231,76,60,0.6);
+        }
+
+        .float-right-top .float-card-inner {
+            background: linear-gradient(135deg, rgba(255,105,180,0.35), rgba(255,20,147,0.2));
+            border-color: rgba(255,105,180,0.5);
+        }
+
         /* Hide on very small screens */
         @media (max-width: 400px) {
             .floating-card {
-                transform: scale(0.75);
+                transform: scale(0.8);
             }
-            .float-left-top, .float-left-bottom {
+            .float-left-top, .float-left-bottom, .float-left-mid {
                 left: -55px;
             }
             .float-right-mid, .float-right-top, .float-right-bottom {
@@ -769,21 +792,24 @@
 
         /* Larger screens - show more */
         @media (min-width: 600px) {
-            .float-left-top { left: -30px; }
-            .float-right-mid { right: -30px; }
-            .float-left-bottom { left: -25px; }
-            .float-right-top { right: -25px; }
-            .float-right-bottom { right: -20px; }
+            .float-left-top, .float-left-bottom, .float-left-mid { left: -30px; }
+            .float-right-mid, .float-right-top, .float-right-bottom { right: -30px; }
             
             .float-card-inner {
-                padding: 20px 24px;
-                min-width: 120px;
+                padding: 16px 18px;
+                min-width: 100px;
             }
             
-            .float-card-icon { font-size: 42px; }
-            .float-card-title { font-size: 16px; }
-            .float-card-desc { font-size: 11px; max-width: 100px; }
-            .float-timer { font-size: 18px; }
+            .float-card-icon { font-size: 34px; }
+            .float-card-title { font-size: 13px; }
+            .float-card-desc { font-size: 10px; max-width: 90px; }
+            .float-timer { font-size: 15px; }
+        }
+
+        /* Tablets and up - even more visible */
+        @media (min-width: 768px) {
+            .float-left-top, .float-left-bottom, .float-left-mid { left: -15px; }
+            .float-right-mid, .float-right-top, .float-right-bottom { right: -15px; }
         }
 
         /* ============ EPIC CARDS SECTION ============ */
@@ -998,6 +1024,269 @@
             max-width: 340px;
         }
 
+        /* ============ FAKE LOADING BAR ============ */
+        .loading-section {
+            width: 100%;
+            max-width: 340px;
+            margin: 25px 0;
+        }
+
+        .loading-card {
+            background: linear-gradient(135deg, rgba(46,204,113,0.15), rgba(39,174,96,0.1));
+            border: 1px solid rgba(46,204,113,0.3);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .loading-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2ecc71;
+            margin-bottom: 15px;
+        }
+
+        .loading-bar-container {
+            width: 100%;
+            height: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .loading-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #2ecc71, #27ae60, #f1c40f, #e74c3c);
+            background-size: 200% 100%;
+            animation: loading-gradient 2s ease infinite;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        @keyframes loading-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .loading-percent {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #2ecc71;
+            margin-bottom: 5px;
+        }
+
+        .loading-status {
+            font-size: 11px;
+            color: rgba(255,255,255,0.6);
+            font-style: italic;
+        }
+
+        /* ============ DAD JOKES ============ */
+        .dadjoke-section {
+            width: 100%;
+            max-width: 340px;
+            margin: 25px 0;
+        }
+
+        .dadjoke-card {
+            background: linear-gradient(135deg, rgba(241,196,15,0.15), rgba(243,156,18,0.1));
+            border: 1px solid rgba(241,196,15,0.3);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .dadjoke-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #f1c40f;
+            margin-bottom: 15px;
+        }
+
+        .dadjoke-text {
+            font-size: 15px;
+            color: #fff;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .dadjoke-btn {
+            background: rgba(241,196,15,0.2);
+            border: 1px solid rgba(241,196,15,0.4);
+            color: #f1c40f;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dadjoke-btn:hover {
+            background: rgba(241,196,15,0.3);
+            transform: scale(1.05);
+        }
+
+        /* ============ 2025 WRAPPED ============ */
+        .wrapped-section {
+            width: 100%;
+            max-width: 340px;
+            margin: 25px 0;
+        }
+
+        .wrapped-card {
+            background: linear-gradient(135deg, rgba(142,68,173,0.2), rgba(155,89,182,0.1));
+            border: 1px solid rgba(155,89,182,0.3);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wrapped-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(155,89,182,0.1), transparent);
+            animation: wrapped-shine 3s ease infinite;
+        }
+
+        @keyframes wrapped-shine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .wrapped-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .wrapped-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #fff;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .wrapped-items {
+            position: relative;
+        }
+
+        .wrapped-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(155,89,182,0.2);
+        }
+
+        .wrapped-item:last-child {
+            border-bottom: none;
+        }
+
+        .wrapped-num {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: #9b59b6;
+            min-width: 50px;
+            text-align: right;
+        }
+
+        .wrapped-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.8);
+            text-align: left;
+            flex: 1;
+        }
+
+        .wrapped-footer {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #f1c40f;
+            font-weight: 600;
+            position: relative;
+        }
+
+        /* Nepal Cyber Bureau Toast */
+        .fbi-toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, rgba(0,0,0,0.95), rgba(30,30,30,0.95));
+            border: 2px solid #DC143C;
+            border-radius: 20px;
+            padding: 30px 40px;
+            z-index: 1000;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 50px rgba(220,20,60,0.5);
+        }
+
+        .fbi-toast.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .fbi-toast .fbi-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+            animation: fbi-pulse 1s ease infinite;
+        }
+
+        @keyframes fbi-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .fbi-toast .fbi-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #DC143C;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .fbi-toast .fbi-message {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .fbi-toast .fbi-close {
+            background: linear-gradient(135deg, #DC143C, #B22222);
+            border: none;
+            color: #fff;
+            padding: 10px 25px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .fbi-toast .fbi-close:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(220,20,60,0.4);
+        }
+
         .comic-card {
             background: linear-gradient(135deg, rgba(155, 89, 182, 0.15), rgba(52, 152, 219, 0.1));
             border: 1px solid rgba(155, 89, 182, 0.3);
@@ -1132,19 +1421,19 @@
         .action-buttons {
             position: fixed;
             bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
+            right: 20px;
             display: flex;
-            gap: 15px;
+            flex-direction: column;
+            gap: 12px;
             z-index: 100;
         }
 
         .action-btn {
-            width: 55px;
-            height: 55px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             border: none;
-            font-size: 24px;
+            font-size: 22px;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 5px 20px rgba(0,0,0,0.3);
@@ -1154,8 +1443,8 @@
         }
 
         .action-btn svg {
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
         }
 
         .party-btn {
@@ -1183,9 +1472,8 @@
         /* Shake hint */
         .shake-hint {
             position: fixed;
-            bottom: 100px;
-            left: 50%;
-            transform: translateX(-50%);
+            bottom: 20px;
+            left: 20px;
             background: rgba(0,0,0,0.7);
             color: #fff;
             padding: 10px 20px;
@@ -1201,8 +1489,8 @@
         }
 
         @keyframes shake-hint {
-            0%, 100% { transform: translateX(-50%) rotate(-3deg); }
-            50% { transform: translateX(-50%) rotate(3deg); }
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
         }
 
         /* Share Modal */
@@ -1459,12 +1747,12 @@
             </div>
         </div>
 
-        <!-- Right Top - Music -->
-        <div class="floating-card float-right-top" onclick="window.open('https://open.spotify.com/track/7F5oktn5YOsR9eR5YsFtqb', '_blank')">
+        <!-- Right Top - RICKROLL 😈 -->
+        <div class="floating-card float-right-top" onclick="window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank')">
             <div class="float-card-inner">
-                <div class="float-card-icon">🎵</div>
-                <div class="float-card-title">Listen</div>
-                <div class="float-card-desc">New Year's Day - Taylor</div>
+                <div class="float-card-icon">💝</div>
+                <div class="float-card-title">Secret Gift</div>
+                <div class="float-card-desc">Special message for you</div>
             </div>
         </div>
 
@@ -1474,6 +1762,15 @@
                 <div class="float-card-icon">🎉</div>
                 <div class="float-card-title">Party Mode</div>
                 <div class="float-card-desc">Tap for celebration!</div>
+            </div>
+        </div>
+
+        <!-- Left Mid - Nepal Cyber Bureau 👁️ -->
+        <div class="floating-card float-left-mid" onclick="showCyberMessage()">
+            <div class="float-card-inner">
+                <div class="float-card-icon">👁️</div>
+                <div class="float-card-title">Alert!</div>
+                <div class="float-card-desc">Nepal Cyber Bureau is watching...</div>
             </div>
         </div>
         
@@ -1529,6 +1826,58 @@
                     <div class="fortune-text" id="fortune-text">Loading your destiny...</div>
                 </div>
                 <button class="new-fortune-btn" onclick="newFortune()">Try Another Fortune</button>
+            </div>
+
+            <!-- ============ FAKE LOADING BAR ============ -->
+            <div class="loading-section">
+                <div class="loading-card">
+                    <div class="loading-title">⚡ Downloading Your 2026 Luck...</div>
+                    <div class="loading-bar-container">
+                        <div class="loading-bar" id="luck-bar"></div>
+                    </div>
+                    <div class="loading-percent" id="luck-percent">0%</div>
+                    <div class="loading-status" id="luck-status">Initializing luck.exe...</div>
+                </div>
+            </div>
+
+            <!-- ============ DAD JOKES ============ -->
+            <div class="dadjoke-section">
+                <div class="dadjoke-card">
+                    <div class="dadjoke-title">🤦 Dad Joke of the Year</div>
+                    <div class="dadjoke-text" id="dadjoke-text">"Why did 2025 break up with 2024? It needed space... and 365 new days!"</div>
+                    <button class="dadjoke-btn" onclick="newDadJoke()">Another One (Warning: Worse)</button>
+                </div>
+            </div>
+
+            <!-- ============ 2025 WRAPPED ============ -->
+            <div class="wrapped-section">
+                <div class="wrapped-card">
+                    <div class="wrapped-badge">YOUR 2025 WRAPPED</div>
+                    <div class="wrapped-title">The Year in Numbers</div>
+                    <div class="wrapped-items">
+                        <div class="wrapped-item">
+                            <span class="wrapped-num">147</span>
+                            <span class="wrapped-label">Times you said "diet starts Monday"</span>
+                        </div>
+                        <div class="wrapped-item">
+                            <span class="wrapped-num">∞</span>
+                            <span class="wrapped-label">Unread emails ignored</span>
+                        </div>
+                        <div class="wrapped-item">
+                            <span class="wrapped-num">52</span>
+                            <span class="wrapped-label">Times you opened fridge hoping new food appeared</span>
+                        </div>
+                        <div class="wrapped-item">
+                            <span class="wrapped-num">1</span>
+                            <span class="wrapped-label">Time you actually went to gym (January 2nd)</span>
+                        </div>
+                        <div class="wrapped-item">
+                            <span class="wrapped-num">847</span>
+                            <span class="wrapped-label">Screenshots you'll never look at again</span>
+                        </div>
+                    </div>
+                    <div class="wrapped-footer">You're basically a professional procrastinator 🏆</div>
+                </div>
             </div>
 
             <!-- ============ EPIC CARDS SECTION ============ -->
@@ -1661,6 +2010,14 @@
         <span id="achievement-text">Achievement Unlocked!</span>
     </div>
 
+    <!-- Nepal Cyber Bureau Toast -->
+    <div class="fbi-toast" id="cyber-toast">
+        <div class="fbi-icon">🇳🇵👁️</div>
+        <div class="fbi-title">⚠️ NEPAL CYBER BUREAU</div>
+        <div class="fbi-message">Your assigned Cyber Bureau agent<br>wishes you Happy New Year 2026! 🎉<br><br><small>P.S. Ramro browsing history chha hai 👀</small></div>
+        <button class="fbi-close" onclick="closeCyber()">Maile Kei Gareko Chhaina 😅</button>
+    </div>
+
     <!-- Screenshot Frame -->
     <div class="screenshot-frame" id="screenshot-frame"></div>
 
@@ -1700,6 +2057,97 @@
             createConfetti(20);
         }
 
+        // ============ DAD JOKES ============
+        const dadJokes = [
+            "Why did 2025 break up with 2024? It needed space... and 365 new days!",
+            "I told my wife she was drawing her eyebrows too high. She looked surprised.",
+            "What do you call a fake noodle? An impasta! ...I'll see myself out.",
+            "Why don't scientists trust atoms? Because they make up everything!",
+            "I'm reading a book about anti-gravity. It's impossible to put down!",
+            "Did you hear about the claustrophobic astronaut? He just needed a little space.",
+            "What did the ocean say to the beach? Nothing, it just waved.",
+            "Why did the scarecrow win an award? He was outstanding in his field!",
+            "I used to hate facial hair, but then it grew on me.",
+            "What do you call a can opener that doesn't work? A can't opener!",
+            "I told my computer I needed a break, and now it won't stop sending me Kit-Kat ads.",
+            "Why do cows wear bells? Because their horns don't work!",
+            "I'm on a seafood diet. I see food and I eat it.",
+            "What do you call a lazy kangaroo? A pouch potato!",
+            "Why don't eggs tell jokes? They'd crack each other up!",
+        ];
+
+        function newDadJoke() {
+            const joke = dadJokes[Math.floor(Math.random() * dadJokes.length)];
+            document.getElementById('dadjoke-text').textContent = '"' + joke + '"';
+            playPop();
+        }
+
+        // ============ NEPAL CYBER BUREAU MESSAGE ============
+        function showCyberMessage() {
+            document.getElementById('cyber-toast').classList.add('show');
+            playMagicChime();
+            // Play fake notification sound
+            if (audioCtx && soundOn) {
+                playTone(1200, 0.1, 'sine', 0.3);
+                setTimeout(() => playTone(1500, 0.1, 'sine', 0.3), 100);
+            }
+        }
+
+        function closeCyber() {
+            document.getElementById('cyber-toast').classList.remove('show');
+            showAchievement("Heriraakheko chha hai! 👁️");
+        }
+
+        // ============ LOADING BAR ============
+        const loadingMessages = [
+            "Initializing luck.exe...",
+            "Downloading good vibes...",
+            "Buffering happiness...",
+            "Installing confidence patch...",
+            "Removing 2025 bugs...",
+            "Compiling success.dll...",
+            "Upgrading motivation drivers...",
+            "Error: Too much talent detected!",
+            "Rebooting life choices...",
+            "Loading unlimited potential...",
+            "Warning: Extreme awesomeness ahead!",
+            "Finalizing your glow-up...",
+            "Complete! (Results may vary 😂)"
+        ];
+
+        function startLoadingBar() {
+            let progress = 0;
+            let messageIndex = 0;
+            const bar = document.getElementById('luck-bar');
+            const percent = document.getElementById('luck-percent');
+            const status = document.getElementById('luck-status');
+            
+            const interval = setInterval(() => {
+                // Random increment between 1-8%
+                progress += Math.random() * 7 + 1;
+                
+                // Slow down near the end for suspense
+                if (progress > 85) progress += Math.random() * 2;
+                
+                // Cap at 100
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    status.textContent = loadingMessages[loadingMessages.length - 1];
+                    playMagicChime();
+                }
+                
+                bar.style.width = progress + '%';
+                percent.textContent = Math.floor(progress) + '%';
+                
+                // Update message periodically
+                if (Math.floor(progress / 8) > messageIndex && messageIndex < loadingMessages.length - 1) {
+                    messageIndex = Math.floor(progress / 8);
+                    status.textContent = loadingMessages[messageIndex];
+                }
+            }, 200);
+        }
+
         // ============ SCREENS ============
         function goToNameScreen() {
             playChime();
@@ -1736,6 +2184,7 @@
             createStars();
             newFortune();
             startEpicTimer();
+            startLoadingBar();
             
             // Initial celebration
             setTimeout(() => {
