@@ -1728,6 +1728,119 @@
             opacity: 0 !important;
             pointer-events: none !important;
         }
+
+        /* Scroll Animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .scroll-animate.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Double Tap Heart */
+        @keyframes floatHeart {
+            0% { 
+                transform: scale(0) rotate(-10deg); 
+                opacity: 1; 
+            }
+            50% { 
+                transform: scale(1.3) rotate(10deg); 
+                opacity: 1; 
+            }
+            100% { 
+                transform: scale(1) translateY(-100px) rotate(0deg); 
+                opacity: 0; 
+            }
+        }
+
+        /* Tap animations */
+        .year {
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+
+        .photo-container {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 480px) {
+            .message-card, .comic-card, .loading-card, 
+            .dadjoke-card, .wrapped-card, .resolution-card {
+                margin: 20px auto;
+                padding: 20px;
+            }
+
+            .float-card-inner {
+                padding: 10px 12px;
+                min-width: 75px;
+            }
+
+            .float-card-icon { font-size: 24px; }
+            .float-card-title { font-size: 9px; }
+            .float-card-desc { font-size: 8px; }
+
+            .action-btn {
+                width: 42px;
+                height: 42px;
+                font-size: 16px;
+            }
+        }
+
+        /* Fun hover states for desktop */
+        @media (hover: hover) {
+            .message-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 25px 70px rgba(0,0,0,0.5), 0 0 30px rgba(212,175,55,0.1);
+            }
+
+            .comic-card:hover, .loading-card:hover, 
+            .dadjoke-card:hover, .wrapped-card:hover, .resolution-card:hover {
+                transform: translateY(-3px);
+                border-color: rgba(212,175,55,0.3);
+            }
+        }
+
+        /* Pull to confetti hint */
+        .pull-hint {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(145deg, rgba(15,15,20,0.9), rgba(10,10,15,0.95));
+            border: 1px solid rgba(212,175,55,0.2);
+            color: rgba(255,255,255,0.6);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 10px;
+            z-index: 50;
+            opacity: 0;
+            animation: showPullHint 0.5s ease 3s forwards;
+        }
+
+        @keyframes showPullHint {
+            to { opacity: 1; }
+        }
+
+        /* Smile emoji floating */
+        .floating-emoji {
+            position: fixed;
+            font-size: 30px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: emojiFloat 2s ease forwards;
+        }
+
+        @keyframes emojiFloat {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.2) rotate(20deg); opacity: 1; }
+            100% { transform: scale(0.8) translateY(-150px) rotate(-20deg); opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -1839,11 +1952,11 @@
             <div class="year-section">
                 <div class="happy-text">Happy New Year</div>
                 <div class="nepali-text">अंग्रेजी नयाँ वर्षको शुभकामना</div>
-                <div class="year">2026</div>
+                <div class="year" onclick="tapYear()">2026</div>
             </div>
 
             <!-- Photo and Personalized Greeting -->
-            <div class="photo-frame">
+            <div class="photo-frame photo-container" onclick="tapPhoto()">
                 <div class="photo-inner">😊</div>
             </div>
 
@@ -2031,6 +2144,7 @@
         </div>
 
         <div class="shake-hint" id="shake-hint">Phone hallau, magic herau</div>
+        <div class="pull-hint" id="pull-hint">↓ Pull down for confetti ↓</div>
 
         <div class="action-buttons">
             <button class="action-btn party-btn" onclick="partyBurst()">🎉</button>
@@ -2112,6 +2226,7 @@
             const fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
             document.getElementById('fortune-emoji').textContent = fortune.emoji;
             document.getElementById('fortune-text').textContent = fortune.text;
+            vibrate([20, 10, 20]);
             playPop();
             createConfetti(20);
         }
@@ -2119,25 +2234,26 @@
         // ============ DAD JOKES ============
         const dadJokes = [
             "Why did 2025 break up with 2024? It needed space... and 365 new days!",
-            "I told my wife she was drawing her eyebrows too high. She looked surprised.",
+            "New Year resolution: Gym janchu! January 15: Gym ko membership card kata gayo?",
+            "Me on Dec 31: New year, new me! Me on Jan 2: Same me, just older.",
+            "Diet starts Monday bhanera khako momo count: ∞",
             "What do you call a fake noodle? An impasta! ...I'll see myself out.",
-            "Why don't scientists trust atoms? Because they make up everything!",
-            "I'm reading a book about anti-gravity. It's impossible to put down!",
-            "Did you hear about the claustrophobic astronaut? He just needed a little space.",
-            "What did the ocean say to the beach? Nothing, it just waved.",
-            "Why did the scarecrow win an award? He was outstanding in his field!",
-            "I used to hate facial hair, but then it grew on me.",
-            "What do you call a can opener that doesn't work? A can't opener!",
-            "I told my computer I needed a break, and now it won't stop sending me Kit-Kat ads.",
-            "Why do cows wear bells? Because their horns don't work!",
-            "I'm on a seafood diet. I see food and I eat it.",
-            "What do you call a lazy kangaroo? A pouch potato!",
+            "My bank account after Dashain, Tihar, Christmas, and New Year: 👻",
+            "Bihana uthne resolution: *Alarm snooze 47 times*",
+            "I'm on a seafood diet. I see food and I eat it. Especially momo.",
+            "Morning walk daily! Plot twist: Walk from bed to bathroom counts, right?",
             "Why don't eggs tell jokes? They'd crack each other up!",
+            "2025 workout plan: Running... late to everything.",
+            "Save money this year! Also me: Daraz sale aaayo! 🛒",
+            "Screen time reduce garchu! *checks phone 200 times a day*",
+            "New year, same chai addiction. But make it ☕ aesthetic.",
+            "Productive hunchu! *watches 47 YouTube shorts* Productive bhaye!",
         ];
 
         function newDadJoke() {
             const joke = dadJokes[Math.floor(Math.random() * dadJokes.length)];
             document.getElementById('dadjoke-text').textContent = '"' + joke + '"';
+            vibrate(20);
             playPop();
         }
 
@@ -2207,7 +2323,144 @@
             }, 200);
         }
 
-        // ============ SCREENS ============
+        // ============ HAPTIC FEEDBACK (Mobile) ============
+        function vibrate(pattern = 50) {
+            if (navigator.vibrate) {
+                navigator.vibrate(pattern);
+            }
+        }
+
+        // ============ EASTER EGGS ============
+        let yearTapCount = 0;
+        let photoTapCount = 0;
+
+        function tapYear() {
+            yearTapCount++;
+            vibrate(30);
+            playPop();
+            
+            const year = document.querySelector('.year');
+            year.style.transform = 'scale(1.1)';
+            setTimeout(() => year.style.transform = 'scale(1)', 150);
+            
+            if (yearTapCount === 5) {
+                showAchievement("2026 प्रेमी! 💕");
+                createConfetti(50);
+            } else if (yearTapCount === 10) {
+                showAchievement("Obsessed with 2026! 🤯");
+                partyBurst();
+            } else if (yearTapCount === 20) {
+                showAchievement("Okay okay, we get it! 😂");
+                for(let i = 0; i < 5; i++) {
+                    setTimeout(() => createFirework(Math.random() * window.innerWidth, Math.random() * window.innerHeight * 0.5), i * 100);
+                }
+            }
+        }
+
+        function tapPhoto() {
+            photoTapCount++;
+            vibrate(20);
+            playPop();
+            
+            const photo = document.querySelector('.photo-container');
+            photo.style.transform = 'scale(1.1) rotate(5deg)';
+            setTimeout(() => photo.style.transform = 'scale(1) rotate(0deg)', 200);
+            
+            if (photoTapCount === 3) {
+                showAchievement("Photo lover! 📸");
+            } else if (photoTapCount === 7) {
+                showAchievement("Stalker mode: ON 👀");
+            }
+        }
+
+        // ============ SURPRISE MESSAGES ============
+        const surpriseMessages = [
+            { text: "Psst... " + userName + ", you're awesome! 🌟", delay: 15000 },
+            { text: "Still here? You must really like this! 😊", delay: 45000 },
+            { text: "Pro tip: Tap the year 2026! 👆", delay: 30000 },
+        ];
+
+        function startSurpriseMessages() {
+            surpriseMessages.forEach(msg => {
+                setTimeout(() => {
+                    if (document.getElementById('main-screen').classList.contains('hidden')) return;
+                    showAchievement(msg.text.replace(userName, userName));
+                }, msg.delay);
+            });
+        }
+
+        // ============ SCROLL ANIMATIONS ============
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                        vibrate(10);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            document.querySelectorAll('.message-card, .comic-card, .loading-card, .dadjoke-card, .wrapped-card, .resolution-card, .fortune-section').forEach(el => {
+                el.classList.add('scroll-animate');
+                observer.observe(el);
+            });
+        }
+
+        // ============ PULL DOWN CONFETTI (Mobile) ============
+        let touchStartY = 0;
+        let pullTriggered = false;
+
+        function initPullConfetti() {
+            const mainContent = document.querySelector('.main-content');
+            if (!mainContent) return;
+
+            mainContent.addEventListener('touchstart', (e) => {
+                touchStartY = e.touches[0].clientY;
+                pullTriggered = false;
+            }, { passive: true });
+
+            mainContent.addEventListener('touchmove', (e) => {
+                if (pullTriggered) return;
+                const touchY = e.touches[0].clientY;
+                const diff = touchY - touchStartY;
+                
+                if (diff > 100 && mainContent.scrollTop === 0) {
+                    pullTriggered = true;
+                    vibrate([50, 30, 50]);
+                    createConfetti(30);
+                    showAchievement("Confetti rain! 🎊");
+                }
+            }, { passive: true });
+        }
+
+        // ============ DOUBLE TAP HEART ============
+        let lastTap = 0;
+        function initDoubleTapHeart() {
+            document.querySelector('.main-content')?.addEventListener('touchend', (e) => {
+                const currentTime = new Date().getTime();
+                const tapLength = currentTime - lastTap;
+                
+                if (tapLength < 300 && tapLength > 0) {
+                    // Double tap detected
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '❤️';
+                    heart.style.cssText = `
+                        position: fixed;
+                        left: ${e.changedTouches[0].clientX - 25}px;
+                        top: ${e.changedTouches[0].clientY - 25}px;
+                        font-size: 50px;
+                        pointer-events: none;
+                        z-index: 9999;
+                        animation: floatHeart 1s ease forwards;
+                    `;
+                    document.body.appendChild(heart);
+                    vibrate(30);
+                    playPop();
+                    setTimeout(() => heart.remove(), 1000);
+                }
+                lastTap = currentTime;
+            });
+        }
         function goToNameScreen() {
             playChime();
             document.getElementById('intro-screen').classList.add('hidden');
@@ -2234,6 +2487,7 @@
         function goToMain() {
             playMagicChime();
             screenFlash();
+            vibrate([50, 30, 100]); // Celebration vibration
             document.getElementById('countdown-screen').classList.add('hidden');
             document.getElementById('main-screen').classList.remove('hidden');
             
@@ -2244,6 +2498,12 @@
             newFortune();
             startEpicTimer();
             startLoadingBar();
+            
+            // Initialize mobile features
+            initScrollAnimations();
+            initPullConfetti();
+            initDoubleTapHeart();
+            startSurpriseMessages();
             
             // Initial celebration
             setTimeout(() => {
@@ -2257,7 +2517,7 @@
             }, 300);
 
             // Show achievement
-            setTimeout(() => showAchievement("2026 मा स्वागत छ"), 1500);
+            setTimeout(() => showAchievement("2026 मा स्वागत छ, " + userName + "! 🎉"), 1500);
             
             // Hide shake hint after 5s
             setTimeout(() => {
@@ -2469,6 +2729,7 @@
 
         function partyBurst() {
             partyCount++;
+            vibrate([30, 20, 30, 20, 50]);
             playPop();
             createConfetti(50);
             for (let i = 0; i < 5; i++) {
@@ -2478,8 +2739,9 @@
                 ), i * 100);
             }
             
-            if (partyCount === 5) showAchievement("Party animal bhayis ta");
-            if (partyCount === 10) showAchievement("Rokna sakinna timro energy");
+            if (partyCount === 5) showAchievement("Party animal bhayis ta 🎉");
+            if (partyCount === 10) showAchievement("Rokna sakinna timro energy! 💪");
+            if (partyCount === 20) showAchievement("Legend! Battery bachau 😂");
         }
 
         // ============ SHARE ============
