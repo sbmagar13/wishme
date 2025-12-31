@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0a0a1a">
+    <meta property="og:title" content="🎉 You're Invited to Celebrate 2026!">
+    <meta property="og:description" content="A special New Year wish just for you from Sagar ✨">
+    <title>🎉 Happy New Year 2026!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600;800&family=Tiro+Devanagari+Hindi:wght@400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            min-height: 100vh;
+            min-height: 100dvh;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background: #0a0a1a;
+            cursor: none;
+        }
+
+        /* Custom Cursor - Desktop only */
+        @media (pointer: fine) {
+            .cursor {
+                position: fixed;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 99999;
+                mix-blend-mode: difference;
+            }
+            .cursor-dot {
+                background: #fff;
+                transform: translate(-50%, -50%);
+            }
+            .cursor-ring {
+                width: 40px;
+                height: 40px;
+                border: 2px solid #fff;
+                background: transparent;
+                transform: translate(-50%, -50%);
+                transition: all 0.15s ease;
+            }
+        }
+
+        @media (pointer: coarse) {
+            .cursor { display: none; }
+            body { cursor: auto; }
+        }
+
+        /* Rainbow trail */
+        .rainbow-trail {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99997;
+            animation: rainbow-fade 0.6s ease forwards;
+        }
+
+        @keyframes rainbow-fade {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        /* ============ SCREEN 1: INTRO ============ */
+        .screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: all 0.6s ease;
+            overflow: hidden;
+        }
+
+        .screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(1.1);
+        }
+
+        #intro-screen {
+            background: radial-gradient(ellipse at center, #1a1a3e 0%, #0a0a1a 100%);
+            z-index: 100;
+        }
+
+        .intro-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 20px;
+            border-radius: 50px;
+            color: rgba(255,255,255,0.8);
+            font-size: 12px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            animation: pulse-badge 2s ease infinite;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+            50% { box-shadow: 0 0 40px rgba(255,255,255,0.2); }
+        }
+
+        .gift-emoji {
+            font-size: clamp(100px, 25vw, 140px);
+            animation: gift-bounce 1s ease-in-out infinite;
+            filter: drop-shadow(0 0 40px rgba(255, 200, 100, 0.6));
+        }
+
+        @keyframes gift-bounce {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-20px) rotate(3deg); }
+        }
+
+        .intro-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(24px, 6vw, 36px);
+            color: #fff;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .intro-subtitle {
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+            margin-top: 10px;
+            font-family: 'Tiro Devanagari Hindi', serif;
+        }
+
+        .tap-hint {
+            position: absolute;
+            bottom: 50px;
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
+            animation: fade-pulse 2s ease infinite;
+        }
+
+        @keyframes fade-pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* ============ SCREEN 2: NAME INPUT ============ */
+        #name-screen {
+            background: radial-gradient(ellipse at center, #1a1a3e 0%, #0a0a1a 100%);
+            z-index: 90;
+        }
+
+        .name-prompt {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(22px, 5vw, 32px);
+            color: #fff;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .name-prompt-nepali {
+            font-family: 'Tiro Devanagari Hindi', serif;
+            color: rgba(255,255,255,0.7);
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .name-input-container {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .name-input {
+            width: 100%;
+            padding: 18px 25px;
+            font-size: 18px;
+            font-family: 'Poppins', sans-serif;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 50px;
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .name-input:focus {
+            border-color: #f1c40f;
+            box-shadow: 0 0 30px rgba(241,196,15,0.3);
+        }
+
+        .name-input::placeholder {
+            color: rgba(255,255,255,0.4);
+        }
+
+        .continue-btn {
+            margin-top: 25px;
+            padding: 15px 50px;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #f1c40f, #e67e22);
+            color: #000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(241,196,15,0.3);
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(241,196,15,0.4);
+        }
+
+        .skip-btn {
+            margin-top: 20px;
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* ============ SCREEN 3: COUNTDOWN ============ */
+        #countdown-screen {
+            background: radial-gradient(ellipse at center, #1a1a3e 0%, #0a0a1a 100%);
+            z-index: 80;
+        }
+
+        .countdown-title {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        .countdown-display {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            text-align: center;
+            min-width: 70px;
+        }
+
+        .countdown-number {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(36px, 10vw, 56px);
+            font-weight: 800;
+            background: linear-gradient(135deg, #f1c40f, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 5px;
+        }
+
+        .countdown-message {
+            margin-top: 40px;
+            color: rgba(255,255,255,0.7);
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .skip-countdown {
+            position: absolute;
+            bottom: 50px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .skip-countdown:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* ============ SCREEN 4: MAIN CELEBRATION ============ */
+        #main-screen {
+            background: linear-gradient(-45deg, #0a0a2a, #1a0a3a, #2a1a4a, #1a2a5a);
+            background-size: 400% 400%;
+            animation: bg-shift 15s ease infinite;
+            z-index: 70;
+            overflow-y: auto;
+        }
+
+        @keyframes bg-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Stars */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        .main-content {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100%;
+            padding: 40px 20px 120px;
+            text-align: center;
+        }
+
+        /* Personalized greeting */
+        .greeting-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(20px, 5vw, 28px);
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 5px;
+        }
+
+        .greeting-hey {
+            color: #f1c40f;
+        }
+
+        /* Photo */
+        .photo-frame {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff0080, #ff8c00, #f1c40f, #40e0d0, #7b68ee);
+            background-size: 300% 300%;
+            animation: rainbow-spin 4s linear infinite;
+            padding: 4px;
+            margin: 20px 0;
+            box-shadow: 0 0 40px rgba(241,196,15,0.3);
+        }
+
+        @keyframes rainbow-spin {
+            0% { background-position: 0% 50%; filter: hue-rotate(0deg); }
+            100% { background-position: 100% 50%; filter: hue-rotate(360deg); }
+        }
+
+        .photo-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #1a1a2e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            overflow: hidden;
+        }
+
+        .photo-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Year */
+        .happy-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(22px, 6vw, 36px);
+            color: #fff;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+        }
+
+        .nepali-text {
+            font-family: 'Tiro Devanagari Hindi', serif;
+            font-size: clamp(18px, 5vw, 26px);
+            color: rgba(255,255,255,0.85);
+            margin: 8px 0 15px;
+        }
+
+        .year {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(80px, 25vw, 150px);
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff0080, #ff8c00, #f1c40f, #40e0d0, #7b68ee);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: year-shift 4s ease infinite;
+            line-height: 1;
+            filter: drop-shadow(0 0 30px rgba(241,196,15,0.4));
+        }
+
+        @keyframes year-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Message */
+        .message-card {
+            max-width: 340px;
+            margin: 25px auto;
+            padding: 25px;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .message-card p {
+            color: rgba(255,255,255,0.9);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .message-card .highlight {
+            color: #f1c40f;
+            font-weight: 600;
+        }
+
+        .message-nepali {
+            margin-top: 15px;
+            font-family: 'Tiro Devanagari Hindi', serif;
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.9;
+        }
+
+        /* Signature */
+        .signature {
+            margin-top: 25px;
+        }
+
+        .from-text {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .name-sign {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #fff;
+            margin-top: 5px;
+        }
+
+        .heart {
+            color: #e74c3c;
+            display: inline-block;
+            animation: heartbeat 0.6s ease infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Fortune Section */
+        .fortune-section {
+            margin: 30px 0;
+            width: 100%;
+            max-width: 340px;
+        }
+
+        .fortune-title {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .fortune-card {
+            background: linear-gradient(135deg, rgba(241,196,15,0.15), rgba(231,76,60,0.1));
+            border: 1px solid rgba(241,196,15,0.3);
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fortune-card::before {
+            content: '✨';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            animation: sparkle-rotate 3s linear infinite;
+        }
+
+        @keyframes sparkle-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .fortune-text {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .fortune-emoji {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .new-fortune-btn {
+            margin-top: 15px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .new-fortune-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Music Button */
+        .music-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #1DB954, #1ed760);
+            color: #fff;
+            padding: 14px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(29,185,84,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .music-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(29,185,84,0.4);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .action-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .party-btn {
+            background: linear-gradient(135deg, #ff0080, #ff8c00);
+        }
+
+        .share-btn {
+            background: linear-gradient(135deg, #3498db, #9b59b6);
+        }
+
+        .sound-btn {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .action-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Shake hint */
+        .shake-hint {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.7);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 12px;
+            z-index: 100;
+            animation: shake-hint 2s ease infinite;
+            display: none;
+        }
+
+        @media (pointer: coarse) {
+            .shake-hint { display: block; }
+        }
+
+        @keyframes shake-hint {
+            0%, 100% { transform: translateX(-50%) rotate(-3deg); }
+            50% { transform: translateX(-50%) rotate(3deg); }
+        }
+
+        /* Share Modal */
+        .share-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .share-modal.active {
+            display: flex;
+        }
+
+        .share-modal-content {
+            background: #1a1a2e;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            max-width: 320px;
+            width: 100%;
+        }
+
+        .share-modal h3 {
+            color: #fff;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .share-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .share-option {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .share-option:hover {
+            transform: scale(1.1);
+        }
+
+        .share-whatsapp { background: #25D366; }
+        .share-twitter { background: #1DA1F2; }
+        .share-facebook { background: #4267B2; }
+        .share-copy { background: rgba(255,255,255,0.2); }
+
+        .close-modal {
+            margin-top: 20px;
+            background: none;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+            padding: 10px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        /* Screenshot Frame */
+        .screenshot-frame {
+            display: none;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            pointer-events: none;
+            z-index: 90;
+        }
+
+        .screenshot-frame.active {
+            display: block;
+            animation: frame-flash 1s ease;
+        }
+
+        @keyframes frame-flash {
+            0%, 100% { border-color: rgba(255,255,255,0.3); }
+            50% { border-color: #f1c40f; }
+        }
+
+        /* Effects */
+        .firework {
+            position: fixed;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 200;
+        }
+
+        .confetti {
+            position: fixed;
+            pointer-events: none;
+            z-index: 200;
+            animation: confetti-fall linear forwards;
+        }
+
+        @keyframes confetti-fall {
+            to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        .flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            z-index: 9999;
+            animation: flash 0.4s ease forwards;
+            pointer-events: none;
+        }
+
+        @keyframes flash {
+            0% { opacity: 0.8; }
+            100% { opacity: 0; }
+        }
+
+        /* Achievement Toast */
+        .achievement-toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: linear-gradient(135deg, #f1c40f, #e67e22);
+            color: #000;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(241,196,15,0.4);
+            transition: transform 0.5s ease;
+        }
+
+        .achievement-toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Hidden */
+        .hidden {
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor cursor-dot" id="cursor-dot"></div>
+    <div class="cursor cursor-ring" id="cursor-ring"></div>
+
+    <!-- ============ SCREEN 1: INTRO ============ -->
+    <div class="screen" id="intro-screen" onclick="goToNameScreen()">
+        <div class="intro-badge">✨ You have a special message</div>
+        <div class="gift-emoji">🎁</div>
+        <div class="intro-title">A New Year Wish<br>Awaits You!</div>
+        <div class="intro-subtitle">तपाईंको लागि एक विशेष शुभकामना 🙏</div>
+        <div class="tap-hint">Tap anywhere to continue</div>
+    </div>
+
+    <!-- ============ SCREEN 2: NAME INPUT ============ -->
+    <div class="screen hidden" id="name-screen">
+        <div class="name-prompt">What's your name?</div>
+        <div class="name-prompt-nepali">तपाईंको नाम के हो?</div>
+        <div class="name-input-container">
+            <input type="text" class="name-input" id="name-input" placeholder="Enter your name..." maxlength="20" autocomplete="off">
+        </div>
+        <button class="continue-btn" onclick="goToCountdown()">Continue ✨</button>
+        <button class="skip-btn" onclick="skipName()">Skip for now</button>
+    </div>
+
+    <!-- ============ SCREEN 3: COUNTDOWN ============ -->
+    <div class="screen hidden" id="countdown-screen">
+        <div class="countdown-title">Countdown to 2026</div>
+        <div class="countdown-display">
+            <div class="countdown-item">
+                <div class="countdown-number" id="days">00</div>
+                <div class="countdown-label">Days</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="hours">00</div>
+                <div class="countdown-label">Hours</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="minutes">00</div>
+                <div class="countdown-label">Minutes</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="seconds">00</div>
+                <div class="countdown-label">Seconds</div>
+            </div>
+        </div>
+        <div class="countdown-message">नयाँ वर्ष आउँदैछ! ✨</div>
+        <button class="skip-countdown" onclick="goToMain()">Open My Wish 🎁</button>
+    </div>
+
+    <!-- ============ SCREEN 4: MAIN ============ -->
+    <div class="screen hidden" id="main-screen">
+        <div class="stars" id="stars"></div>
+        
+        <div class="main-content">
+            <div class="greeting-name" id="greeting-name">
+                <span class="greeting-hey">Hey</span> Friend! 👋
+            </div>
+
+            <div class="photo-frame">
+                <div class="photo-inner">😊</div>
+            </div>
+
+            <div class="happy-text">Happy New Year</div>
+            <div class="nepali-text">नयाँ वर्षको शुभकामना</div>
+            <div class="year">2026</div>
+
+            <div class="message-card">
+                <p>
+                    May this year bring you <span class="highlight">endless joy</span>, 
+                    beautiful moments, and all the <span class="highlight">happiness</span> 
+                    your heart can hold! ✨
+                </p>
+                <p class="message-nepali">
+                    यो वर्ष तपाईंको जीवनमा खुशी, सफलता र मायाले भरिपूर्ण होस्। 
+                    नयाँ सपना, नयाँ आशा! 🙏
+                </p>
+            </div>
+
+            <!-- Fortune -->
+            <div class="fortune-section">
+                <div class="fortune-title">🔮 Your 2026 Fortune</div>
+                <div class="fortune-card">
+                    <div class="fortune-emoji" id="fortune-emoji">🌟</div>
+                    <div class="fortune-text" id="fortune-text">Loading your destiny...</div>
+                </div>
+                <button class="new-fortune-btn" onclick="newFortune()">🎲 New Fortune</button>
+            </div>
+
+            <div class="signature">
+                <div class="from-text">With love / माया सहित,</div>
+                <div class="name-sign">Sagar <span class="heart">❤️</span></div>
+            </div>
+
+            <a href="https://open.spotify.com/track/7F5oktn5YOsR9eR5YsFtqb" target="_blank" class="music-btn">
+                🎵 Play "New Year's Day" - Taylor Swift
+            </a>
+        </div>
+
+        <div class="shake-hint" id="shake-hint">📱 Shake your phone for surprise!</div>
+
+        <div class="action-buttons">
+            <button class="action-btn party-btn" onclick="partyBurst()">🎉</button>
+            <button class="action-btn share-btn" onclick="openShareModal()">📤</button>
+            <button class="action-btn sound-btn" id="sound-btn" onclick="toggleSound()">🔊</button>
+        </div>
+    </div>
+
+    <!-- Share Modal -->
+    <div class="share-modal" id="share-modal">
+        <div class="share-modal-content">
+            <h3>Share the Joy! 🎉</h3>
+            <div class="share-options">
+                <a href="#" class="share-option share-whatsapp" id="share-whatsapp">💬</a>
+                <a href="#" class="share-option share-twitter" id="share-twitter">🐦</a>
+                <a href="#" class="share-option share-facebook" id="share-facebook">📘</a>
+                <button class="share-option share-copy" onclick="copyLink()">📋</button>
+            </div>
+            <button class="close-modal" onclick="closeShareModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Achievement Toast -->
+    <div class="achievement-toast" id="achievement-toast">
+        <span>🏆</span>
+        <span id="achievement-text">Achievement Unlocked!</span>
+    </div>
+
+    <!-- Screenshot Frame -->
+    <div class="screenshot-frame" id="screenshot-frame"></div>
+
+    <script>
+        // ============ STATE ============
+        let userName = 'Friend';
+        let soundOn = true;
+        let audioCtx;
+        let trailHue = 0;
+        let partyCount = 0;
+
+        // ============ FORTUNES ============
+        const fortunes = [
+            { emoji: '💰', text: "Big financial wins are coming your way! Save wisely, spend joyfully." },
+            { emoji: '❤️', text: "Love will find you in unexpected places. Keep your heart open!" },
+            { emoji: '✈️', text: "Adventure awaits! You'll travel somewhere you've always dreamed of." },
+            { emoji: '🎯', text: "That goal you've been chasing? 2026 is YOUR year to achieve it!" },
+            { emoji: '🌟', text: "You'll inspire someone in ways you never imagined. Shine bright!" },
+            { emoji: '📚', text: "A new skill you learn will open incredible doors for you." },
+            { emoji: '🏆', text: "Recognition and success! Your hard work will finally pay off." },
+            { emoji: '🌈', text: "After every storm comes a rainbow. Brighter days are ahead!" },
+            { emoji: '💪', text: "Your health and energy will be at an all-time high. Stay active!" },
+            { emoji: '🎵', text: "Music and creativity will bring unexpected joy into your life." },
+            { emoji: '🤝', text: "A new friendship will change your life in beautiful ways." },
+            { emoji: '🚀', text: "Your career is about to take off! Get ready for exciting opportunities." },
+            { emoji: '🌸', text: "Peace and harmony will fill your home and relationships." },
+            { emoji: '💡', text: "A brilliant idea will strike you. Don't ignore it - act on it!" },
+            { emoji: '🎁', text: "Surprise gifts and blessings are headed your way. Stay grateful!" },
+        ];
+
+        function newFortune() {
+            const fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+            document.getElementById('fortune-emoji').textContent = fortune.emoji;
+            document.getElementById('fortune-text').textContent = fortune.text;
+            playPop();
+            createConfetti(20);
+        }
+
+        // ============ SCREENS ============
+        function goToNameScreen() {
+            playChime();
+            document.getElementById('intro-screen').classList.add('hidden');
+            document.getElementById('name-screen').classList.remove('hidden');
+            setTimeout(() => document.getElementById('name-input').focus(), 500);
+        }
+
+        function goToCountdown() {
+            const input = document.getElementById('name-input').value.trim();
+            if (input) userName = input;
+            playChime();
+            document.getElementById('name-screen').classList.add('hidden');
+            document.getElementById('countdown-screen').classList.remove('hidden');
+            startCountdown();
+        }
+
+        function skipName() {
+            playChime();
+            document.getElementById('name-screen').classList.add('hidden');
+            document.getElementById('countdown-screen').classList.remove('hidden');
+            startCountdown();
+        }
+
+        function goToMain() {
+            playMagicChime();
+            screenFlash();
+            document.getElementById('countdown-screen').classList.add('hidden');
+            document.getElementById('main-screen').classList.remove('hidden');
+            
+            // Set personalized greeting
+            document.getElementById('greeting-name').innerHTML = 
+                `<span class="greeting-hey">Hey</span> ${userName}! 👋`;
+            
+            createStars();
+            newFortune();
+            
+            // Initial celebration
+            setTimeout(() => {
+                createConfetti(60);
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => createFirework(
+                        Math.random() * window.innerWidth,
+                        Math.random() * window.innerHeight * 0.5
+                    ), i * 200);
+                }
+            }, 300);
+
+            // Show achievement
+            setTimeout(() => showAchievement("🎊 Welcome to 2026!"), 1500);
+            
+            // Hide shake hint after 5s
+            setTimeout(() => {
+                const hint = document.getElementById('shake-hint');
+                if (hint) hint.style.opacity = '0';
+            }, 5000);
+        }
+
+        // ============ COUNTDOWN ============
+        function startCountdown() {
+            const target = new Date('January 1, 2026 00:00:00').getTime();
+            
+            const update = () => {
+                const now = new Date().getTime();
+                const diff = target - now;
+                
+                if (diff <= 0) {
+                    document.getElementById('days').textContent = '00';
+                    document.getElementById('hours').textContent = '00';
+                    document.getElementById('minutes').textContent = '00';
+                    document.getElementById('seconds').textContent = '00';
+                    document.querySelector('.countdown-message').textContent = '🎉 Happy New Year 2026! 🎉';
+                    return;
+                }
+                
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            };
+            
+            update();
+            setInterval(update, 1000);
+        }
+
+        // ============ AUDIO ============
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playTone(freq, dur, type = 'sine', vol = 0.15) {
+            if (!soundOn || !audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.type = type;
+            osc.frequency.value = freq;
+            gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+            osc.start();
+            osc.stop(audioCtx.currentTime + dur);
+        }
+
+        function playChime() {
+            initAudio();
+            playTone(523, 0.3);
+            setTimeout(() => playTone(659, 0.3), 100);
+        }
+
+        function playMagicChime() {
+            initAudio();
+            [523, 659, 784, 880, 1047].forEach((n, i) => 
+                setTimeout(() => playTone(n, 0.5, 'sine', 0.1), i * 80)
+            );
+        }
+
+        function playPop() {
+            initAudio();
+            if (!soundOn || !audioCtx) return;
+            const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.08, audioCtx.sampleRate);
+            const data = buf.getChannelData(0);
+            for (let i = 0; i < buf.length; i++) data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (buf.length * 0.02));
+            const src = audioCtx.createBufferSource();
+            const gain = audioCtx.createGain();
+            src.buffer = buf;
+            src.connect(gain);
+            gain.connect(audioCtx.destination);
+            gain.gain.value = 0.2;
+            src.start();
+        }
+
+        function playFireworkSound() {
+            initAudio();
+            if (!soundOn || !audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(1500, audioCtx.currentTime + 0.12);
+            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.12);
+        }
+
+        function toggleSound() {
+            soundOn = !soundOn;
+            document.getElementById('sound-btn').textContent = soundOn ? '🔊' : '🔇';
+        }
+
+        // ============ VISUALS ============
+        const colors = ['#ff0080', '#ff8c00', '#f1c40f', '#40e0d0', '#7b68ee', '#ff6347', '#00fa9a'];
+
+        function createStars() {
+            const container = document.getElementById('stars');
+            if (!container) return;
+            for (let i = 0; i < 80; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(star);
+            }
+        }
+
+        function createConfetti(count = 40) {
+            const shapes = ['✨', '⭐', '🌟', '💫', '❤️', '🎉', '🎊', '💖'];
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const conf = document.createElement('div');
+                    conf.className = 'confetti';
+                    conf.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+                    conf.style.left = Math.random() * 100 + '%';
+                    conf.style.top = '-20px';
+                    conf.style.fontSize = Math.random() * 15 + 12 + 'px';
+                    conf.style.animationDuration = Math.random() * 2 + 2 + 's';
+                    document.body.appendChild(conf);
+                    setTimeout(() => conf.remove(), 4000);
+                }, i * 30);
+            }
+        }
+
+        function createFirework(x, y) {
+            playFireworkSound();
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            for (let i = 0; i < 30; i++) {
+                const p = document.createElement('div');
+                p.className = 'firework';
+                p.style.left = x + 'px';
+                p.style.top = y + 'px';
+                p.style.background = color;
+                p.style.boxShadow = `0 0 6px ${color}`;
+                document.body.appendChild(p);
+                const angle = (Math.PI * 2 * i) / 30;
+                const vel = Math.random() * 5 + 3;
+                let vx = Math.cos(angle) * vel, vy = Math.sin(angle) * vel;
+                let px = x, py = y, op = 1;
+                const animate = () => {
+                    px += vx; py += vy + 0.15; op -= 0.025;
+                    p.style.left = px + 'px';
+                    p.style.top = py + 'px';
+                    p.style.opacity = op;
+                    if (op > 0) requestAnimationFrame(animate);
+                    else p.remove();
+                };
+                requestAnimationFrame(animate);
+            }
+        }
+
+        function screenFlash() {
+            const flash = document.createElement('div');
+            flash.className = 'flash';
+            document.body.appendChild(flash);
+            setTimeout(() => flash.remove(), 400);
+        }
+
+        function showAchievement(text) {
+            const toast = document.getElementById('achievement-toast');
+            document.getElementById('achievement-text').textContent = text;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function partyBurst() {
+            partyCount++;
+            playPop();
+            createConfetti(50);
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => createFirework(
+                    Math.random() * window.innerWidth,
+                    Math.random() * window.innerHeight * 0.6
+                ), i * 100);
+            }
+            
+            if (partyCount === 5) showAchievement("🎊 Party Animal!");
+            if (partyCount === 10) showAchievement("🔥 Unstoppable!");
+        }
+
+        // ============ SHARE ============
+        function openShareModal() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent("🎉 Check out this amazing New Year wish from Sagar! Happy 2026! ✨");
+            
+            document.getElementById('share-whatsapp').href = `https://wa.me/?text=${text}%20${url}`;
+            document.getElementById('share-twitter').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+            document.getElementById('share-facebook').href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            
+            document.getElementById('share-modal').classList.add('active');
+        }
+
+        function closeShareModal() {
+            document.getElementById('share-modal').classList.remove('active');
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                showAchievement("📋 Link Copied!");
+                closeShareModal();
+            });
+        }
+
+        // ============ CURSOR ============
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorRing = document.getElementById('cursor-ring');
+        let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            if (cursorDot) {
+                cursorDot.style.left = mouseX + 'px';
+                cursorDot.style.top = mouseY + 'px';
+            }
+            if (Math.random() > 0.6) createRainbowTrail(mouseX, mouseY);
+        });
+
+        function animateCursor() {
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            if (cursorRing) {
+                cursorRing.style.left = ringX + 'px';
+                cursorRing.style.top = ringY + 'px';
+            }
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        function createRainbowTrail(x, y) {
+            const trail = document.createElement('div');
+            trail.className = 'rainbow-trail';
+            trail.style.left = x + 'px';
+            trail.style.top = y + 'px';
+            trail.style.background = `hsl(${trailHue}, 100%, 60%)`;
+            document.body.appendChild(trail);
+            trailHue = (trailHue + 15) % 360;
+            setTimeout(() => trail.remove(), 600);
+        }
+
+        // ============ SHAKE DETECTION ============
+        let lastShake = 0;
+        window.addEventListener('devicemotion', (e) => {
+            const acc = e.accelerationIncludingGravity;
+            if (!acc) return;
+            const total = Math.abs(acc.x) + Math.abs(acc.y) + Math.abs(acc.z);
+            if (total > 40 && Date.now() - lastShake > 1000) {
+                lastShake = Date.now();
+                partyBurst();
+                showAchievement("📱 Shake Master!");
+            }
+        });
+
+        // ============ CLICK EFFECTS ============
+        document.addEventListener('click', (e) => {
+            if (document.getElementById('main-screen').classList.contains('hidden')) return;
+            if (e.target.closest('button') || e.target.closest('a') || e.target.closest('.share-modal')) return;
+            createFirework(e.clientX, e.clientY);
+        });
+
+        // ============ ENTER KEY ============
+        document.getElementById('name-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') goToCountdown();
+        });
+
+        // ============ AUTO EFFECTS ============
+        setInterval(() => {
+            if (!document.getElementById('main-screen').classList.contains('hidden')) {
+                const conf = document.createElement('div');
+                conf.className = 'confetti';
+                conf.textContent = ['✨', '⭐', '🌟'][Math.floor(Math.random() * 3)];
+                conf.style.left = Math.random() * 100 + '%';
+                conf.style.top = '-20px';
+                conf.style.fontSize = '14px';
+                conf.style.animationDuration = '3s';
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), 3000);
+            }
+        }, 800);
+    </script>
+</body>
+</html>
