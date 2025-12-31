@@ -453,6 +453,10 @@
             background: linear-gradient(180deg, #05050a 0%, #0a0a12 50%, #08080f 100%);
             z-index: 70;
             overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
         }
 
         @keyframes bg-shift {
@@ -484,6 +488,108 @@
             50% { opacity: 0.8; transform: scale(1.3); }
         }
 
+        /* ============ AMBIENT FLOATING PARTICLES ============ */
+        .ambient-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .ambient-orb {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212,175,55,0.4) 0%, rgba(212,175,55,0.1) 40%, transparent 70%);
+            filter: blur(2px);
+            animation: floatOrb linear infinite;
+            will-change: transform;
+        }
+
+        @keyframes floatOrb {
+            0% {
+                transform: translate3d(0, 100vh, 0) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: translate3d(10px, 80vh, 0) scale(1);
+            }
+            90% {
+                opacity: 1;
+                transform: translate3d(-10px, 10vh, 0) scale(1);
+            }
+            100% {
+                transform: translate3d(0, -10vh, 0) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* ============ GLOW PULSE ON IMPORTANT ELEMENTS ============ */
+        .glow-pulse {
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { 
+                filter: drop-shadow(0 0 20px rgba(212,175,55,0.3));
+            }
+            50% { 
+                filter: drop-shadow(0 0 35px rgba(212,175,55,0.5));
+            }
+        }
+
+        .photo-frame {
+            animation: rainbow-spin 5s linear infinite, glowPulse 3s ease-in-out infinite;
+        }
+
+        .year {
+            animation: gold-shimmer 3s ease infinite, yearGlow 4s ease-in-out infinite !important;
+        }
+
+        @keyframes yearGlow {
+            0%, 100% { 
+                filter: drop-shadow(0 4px 30px rgba(212,175,55,0.4)) !important;
+            }
+            50% { 
+                filter: drop-shadow(0 4px 50px rgba(212,175,55,0.6)) !important;
+            }
+        }
+
+        /* ============ MADE WITH LOVE WATERMARK ============ */
+        .watermark {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            color: rgba(255,255,255,0.3);
+            z-index: 50;
+            pointer-events: none;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.5px;
+            transition: opacity 0.3s ease;
+        }
+
+        .watermark .heart {
+            color: rgba(212,175,55,0.5);
+            display: inline-block;
+            animation: heartBeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .watermark .name {
+            color: rgba(212,175,55,0.5);
+            font-weight: 500;
+        }
+
         .main-content {
             position: relative;
             z-index: 10;
@@ -505,7 +611,6 @@
             border-radius: 50%;
             background: linear-gradient(45deg, #d4af37, #f4e4bc, #b8860b, #daa520, #c9a227);
             background-size: 300% 300%;
-            animation: rainbow-spin 5s linear infinite;
             padding: 4px;
             margin: 20px 0;
             box-shadow: 0 0 40px rgba(212,175,55,0.25);
@@ -714,6 +819,16 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+            animation: cardGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes cardGlow {
+            0%, 100% { 
+                box-shadow: 0 15px 50px rgba(0,0,0,0.4), 0 0 20px rgba(212,175,55,0.05);
+            }
+            50% { 
+                box-shadow: 0 15px 50px rgba(0,0,0,0.4), 0 0 30px rgba(212,175,55,0.15);
+            }
         }
 
         .fortune-card::before {
@@ -774,6 +889,24 @@
 
         .floating-card:hover {
             z-index: 45;
+        }
+
+        /* Special glow for secret card */
+        .secret-card-glow .float-card-inner {
+            animation: secretGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes secretGlow {
+            0%, 100% { 
+                box-shadow: 0 10px 40px rgba(0,0,0,0.5), 
+                            inset 0 1px 0 rgba(255,255,255,0.03),
+                            0 0 15px rgba(212,175,55,0.1);
+            }
+            50% { 
+                box-shadow: 0 10px 40px rgba(0,0,0,0.5), 
+                            inset 0 1px 0 rgba(255,255,255,0.03),
+                            0 0 25px rgba(212,175,55,0.25);
+            }
         }
 
         .float-card-inner {
@@ -2210,6 +2343,12 @@
     <!-- ============ SCREEN 4: MAIN ============ -->
     <div class="screen hidden" id="main-screen">
         <div class="stars" id="stars"></div>
+        
+        <!-- Ambient Floating Particles -->
+        <div class="ambient-container" id="ambient-container"></div>
+        
+        <!-- Made with Love Watermark -->
+        <div class="watermark" id="watermark">Made with <span class="heart">❤️</span> for <span class="name" id="watermark-name">You</span></div>
 
         <!-- ============ FLOATING EDGE CARDS ============ -->
         <!-- Left Side Card - Watch Video -->
@@ -2241,7 +2380,7 @@
         </div>
 
         <!-- Right Top - Secret Message Scratch -->
-        <div class="floating-card float-right-top" onclick="openScratchModal()">
+        <div class="floating-card float-right-top secret-card-glow" onclick="openScratchModal()">
             <div class="float-card-inner">
                 <div class="float-card-icon">🤫</div>
                 <div class="float-card-title">Secret</div>
@@ -2264,8 +2403,8 @@
 
             <!-- Main Year Display - FIRST and Prominent -->
             <div class="year-section">
-                <div class="happy-text">Happy New Year</div>
-                <div class="nepali-text">अंग्रेजी नयाँ वर्षको शुभकामना</div>
+                <div class="happy-text" id="time-greeting">Happy New Year</div>
+                <div class="nepali-text" id="time-greeting-nepali">अंग्रेजी नयाँ वर्षको शुभकामना</div>
                 <div class="year" onclick="tapYear()">2026</div>
             </div>
 
@@ -3194,6 +3333,11 @@
             startSurpriseMessages();
             initParallaxTilt();
             
+            // Initialize ambient effects
+            createAmbientParticles();
+            updateTimeGreeting();
+            updateWatermark();
+            
             // Initial celebration
             setTimeout(() => {
                 createConfetti(60);
@@ -3365,6 +3509,84 @@
             }
             
             container.appendChild(fragment);
+        }
+
+        // ============ AMBIENT FLOATING PARTICLES ============
+        function createAmbientParticles() {
+            const container = document.getElementById('ambient-container');
+            if (!container) return;
+            
+            const particleCount = 8; // Subtle, not too many
+            
+            for (let i = 0; i < particleCount; i++) {
+                createAmbientOrb(container, i * 3000); // Stagger creation
+            }
+            
+            // Continuously create new particles
+            setInterval(() => {
+                if (document.getElementById('main-screen').classList.contains('hidden')) return;
+                createAmbientOrb(container, 0);
+            }, 4000);
+        }
+        
+        function createAmbientOrb(container, delay) {
+            setTimeout(() => {
+                const orb = document.createElement('div');
+                orb.className = 'ambient-orb';
+                
+                const size = Math.random() * 60 + 30; // 30-90px
+                const duration = Math.random() * 15 + 20; // 20-35s
+                const startX = Math.random() * 100;
+                
+                orb.style.cssText = `
+                    left: ${startX}%;
+                    width: ${size}px;
+                    height: ${size}px;
+                    animation-duration: ${duration}s;
+                    animation-delay: ${Math.random() * 2}s;
+                `;
+                
+                container.appendChild(orb);
+                
+                // Remove after animation
+                setTimeout(() => orb.remove(), (duration + 2) * 1000);
+            }, delay);
+        }
+
+        // ============ TIME-BASED GREETING ============
+        function updateTimeGreeting() {
+            const hour = new Date().getHours();
+            const greetingEl = document.getElementById('time-greeting');
+            const greetingNepaliEl = document.getElementById('time-greeting-nepali');
+            
+            if (!greetingEl) return;
+            
+            let greeting, greetingNepali;
+            
+            if (hour >= 5 && hour < 12) {
+                greeting = "Good Morning & Happy New Year";
+                greetingNepali = "शुभ प्रभात र नयाँ वर्षको शुभकामना";
+            } else if (hour >= 12 && hour < 17) {
+                greeting = "Good Afternoon & Happy New Year";
+                greetingNepali = "शुभ दिन र नयाँ वर्षको शुभकामना";
+            } else if (hour >= 17 && hour < 21) {
+                greeting = "Good Evening & Happy New Year";
+                greetingNepali = "शुभ सन्ध्या र नयाँ वर्षको शुभकामना";
+            } else {
+                greeting = "Happy New Year";
+                greetingNepali = "नयाँ वर्षको शुभकामना";
+            }
+            
+            greetingEl.textContent = greeting;
+            if (greetingNepaliEl) greetingNepaliEl.textContent = greetingNepali;
+        }
+
+        // ============ UPDATE WATERMARK ============
+        function updateWatermark() {
+            const watermarkName = document.getElementById('watermark-name');
+            if (watermarkName) {
+                watermarkName.textContent = userName;
+            }
         }
 
         // ============ OPTIMIZED CONFETTI ============
