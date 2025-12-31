@@ -336,6 +336,30 @@
             color: rgba(255,255,255,0.3);
         }
 
+        .name-input.error {
+            border-color: rgba(255,100,100,0.6);
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            50% { transform: translateX(8px); }
+            75% { transform: translateX(-8px); }
+        }
+
+        .name-error {
+            color: rgba(255,150,150,0.9);
+            font-size: 12px;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .name-error.show {
+            opacity: 1;
+        }
+
         .continue-btn {
             margin-top: 25px;
             padding: 16px 50px;
@@ -2428,10 +2452,10 @@
 
     <!-- ============ SCREEN 1: INTRO ============ -->
     <div class="screen" id="intro-screen" onclick="goToNameScreen()">
-        <div class="intro-badge">अंग्रेजी नयाँ वर्ष आइसकेको छ!</div>
+        <div class="intro-badge">2026 आइपुग्यो!</div>
         <div class="gift-emoji">🎁</div>
         <div class="intro-title">A New Year Wish<br>Just For You</div>
-        <div class="intro-subtitle">हाम्रो त बैशाखमा, तर party गर्न के फरक पर्छ र!</div>
+        <div class="intro-subtitle">ल छिटो Wish लिइहाल्नुहोस् त! ✨</div>
         <div class="tap-hint">Tap anywhere to continue</div>
     </div>
 
@@ -2441,6 +2465,7 @@
         <div class="name-prompt-nepali">तपाईंको नाम के हो?</div>
         <div class="name-input-container">
             <input type="text" class="name-input" id="name-input" placeholder="Enter your name..." maxlength="20" autocomplete="off">
+            <div class="name-error" id="name-error">Please enter your name</div>
         </div>
         <button class="continue-btn" onclick="goToCountdown()">Continue</button>
         <button class="skip-btn" onclick="skipName()">Skip for now</button>
@@ -2467,7 +2492,7 @@
                 <div class="countdown-label">Sec / सेकेन्ड</div>
             </div>
         </div>
-        <div class="countdown-message" id="countdown-message">अंग्रेजी नयाँ वर्ष आइसकेको छ!</div>
+        <div class="countdown-message" id="countdown-message">2026 आइपुग्यो! 🎉</div>
         <button class="skip-countdown" onclick="goToMain()">Open My Wish 🎁</button>
     </div>
 
@@ -3443,7 +3468,28 @@
 
         function goToCountdown() {
             const input = document.getElementById('name-input').value.trim();
-            if (input) userName = input;
+            const inputEl = document.getElementById('name-input');
+            const errorEl = document.getElementById('name-error');
+            
+            if (!input) {
+                // Show error
+                inputEl.classList.add('error');
+                errorEl.classList.add('show');
+                vibrate(50);
+                
+                // Remove error state after animation
+                setTimeout(() => {
+                    inputEl.classList.remove('error');
+                }, 400);
+                
+                inputEl.focus();
+                return;
+            }
+            
+            // Hide error if shown
+            errorEl.classList.remove('show');
+            
+            userName = input;
             playChime();
             document.getElementById('name-screen').classList.add('hidden');
             document.getElementById('countdown-screen').classList.remove('hidden');
@@ -3958,6 +4004,11 @@
         // ============ ENTER KEY ============
         document.getElementById('name-input').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') goToCountdown();
+        });
+        
+        // Hide error when user starts typing
+        document.getElementById('name-input').addEventListener('input', () => {
+            document.getElementById('name-error').classList.remove('show');
         });
 
         // ============ AUTO EFFECTS ============
