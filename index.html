@@ -2844,13 +2844,32 @@
             if (photoEl) tiltElements.push({ el: photoEl, intensity: 15 });
             if (starsEl) tiltElements.push({ el: starsEl, intensity: -10 }); // Opposite direction
             
-            // Device orientation for mobile
+            // Check if device has motion sensors
             if (window.DeviceOrientationEvent) {
-                window.addEventListener('deviceorientation', handleTilt, { passive: true });
+                // iOS 13+ requires permission request
+                if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                    // Will request on first user interaction
+                    document.addEventListener('click', requestMotionPermission, { once: true });
+                    document.addEventListener('touchstart', requestMotionPermission, { once: true });
+                } else {
+                    // Android and older iOS - works directly
+                    window.addEventListener('deviceorientation', handleTilt, { passive: true });
+                }
             }
             
             // Mouse movement for desktop
             document.addEventListener('mousemove', handleMouseTilt, { passive: true });
+        }
+        
+        async function requestMotionPermission() {
+            try {
+                const permission = await DeviceOrientationEvent.requestPermission();
+                if (permission === 'granted') {
+                    window.addEventListener('deviceorientation', handleTilt, { passive: true });
+                }
+            } catch (e) {
+                console.log('Motion permission error:', e);
+            }
         }
         
         const handleTilt = throttle((e) => {
