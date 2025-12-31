@@ -174,23 +174,23 @@
         }
 
         /* Rainbow trail */
-        .rainbow-trail {
+        /* Premium cursor trail */
+        .cursor-trail {
             position: fixed;
             left: 0;
             top: 0;
-            width: 6px;
-            height: 6px;
-            margin: -3px 0 0 -3px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             pointer-events: none;
             z-index: 99997;
-            will-change: transform, opacity;
-            animation: rainbow-fade 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            background: radial-gradient(circle, rgba(212,175,55,0.8) 0%, rgba(212,175,55,0.3) 50%, transparent 70%);
+            transition: transform 0.1s ease-out, opacity 0.3s ease;
+            opacity: 0;
         }
 
-        @keyframes rainbow-fade {
-            0% { transform: translate3d(var(--x, 0), var(--y, 0), 0) scale(1); opacity: 0.7; }
-            100% { transform: translate3d(var(--x, 0), var(--y, 0), 0) scale(0); opacity: 0; }
+        .cursor-trail.active {
+            opacity: 1;
         }
 
         /* ============ SCREEN 1: INTRO ============ */
@@ -2677,7 +2677,6 @@
         let userName = 'Friend';
         let soundOn = true;
         let audioCtx;
-        let trailHue = 0;
         let partyCount = 0;
 
         // ============ FORTUNES ============
@@ -3701,45 +3700,81 @@
             });
         }
 
-        // ============ CURSOR (Optimized) ============
+        // ============ CURSOR (Optimized with Trail Pool) ============
         const cursorDot = document.getElementById('cursor-dot');
         const cursorRing = document.getElementById('cursor-ring');
         let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
-        let trailCounter = 0;
+        
+        // Trail pool system - reuse elements instead of create/destroy
+        const TRAIL_LENGTH = 12;
+        const trailPool = [];
+        const trailPositions = [];
+        let trailInitialized = false;
 
-        // Throttled mouse move for better performance
-        const handleMouseMove = throttle((e) => {
+        function initTrailPool() {
+            if (trailInitialized) return;
+            for (let i = 0; i < TRAIL_LENGTH; i++) {
+                const trail = document.createElement('div');
+                trail.className = 'cursor-trail';
+                trail.style.width = `${8 - i * 0.5}px`;
+                trail.style.height = `${8 - i * 0.5}px`;
+                trail.style.opacity = `${0.6 - i * 0.04}`;
+                document.body.appendChild(trail);
+                trailPool.push(trail);
+                trailPositions.push({ x: 0, y: 0 });
+            }
+            trailInitialized = true;
+        }
+
+        // Smooth mouse tracking
+        document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
+        }, { passive: true });
+
+        function animateCursor() {
+            // Cursor dot follows instantly
             if (cursorDot) {
                 cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
             }
-            // Reduced trail frequency for performance
-            trailCounter++;
-            if (trailCounter % 3 === 0) createRainbowTrail(mouseX, mouseY);
-        }, 16); // ~60fps
-
-        document.addEventListener('mousemove', handleMouseMove, { passive: true });
-
-        function animateCursor() {
+            
+            // Ring follows with lag
             ringX += (mouseX - ringX) * 0.12;
             ringY += (mouseY - ringY) * 0.12;
             if (cursorRing) {
                 cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
             }
+            
+            // Update trail positions with smooth following
+            if (trailInitialized) {
+                // Shift positions
+                for (let i = TRAIL_LENGTH - 1; i > 0; i--) {
+                    trailPositions[i].x += (trailPositions[i-1].x - trailPositions[i].x) * 0.35;
+                    trailPositions[i].y += (trailPositions[i-1].y - trailPositions[i].y) * 0.35;
+                }
+                trailPositions[0].x += (mouseX - trailPositions[0].x) * 0.5;
+                trailPositions[0].y += (mouseY - trailPositions[0].y) * 0.5;
+                
+                // Apply to trail elements
+                trailPool.forEach((trail, i) => {
+                    trail.style.transform = `translate3d(${trailPositions[i].x - 4}px, ${trailPositions[i].y - 4}px, 0)`;
+                });
+            }
+            
             requestAnimationFrame(animateCursor);
         }
+        
+        // Initialize trail on first mouse enter
+        document.addEventListener('mouseenter', () => {
+            initTrailPool();
+            trailPool.forEach(t => t.classList.add('active'));
+        }, { once: true });
+        
+        document.addEventListener('mouseleave', () => {
+            trailPool.forEach(t => t.classList.remove('active'));
+        });
+        
         animateCursor();
-
-        function createRainbowTrail(x, y) {
-            const trail = document.createElement('div');
-            trail.className = 'rainbow-trail';
-            trail.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-            trail.style.background = `hsl(${trailHue}, 70%, 50%)`;
-            document.body.appendChild(trail);
-            trailHue = (trailHue + 20) % 360;
-            setTimeout(() => trail.remove(), 500);
-        }
 
         // ============ SHAKE DETECTION (Optimized) ============
         let lastShake = 0;
