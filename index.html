@@ -273,11 +273,12 @@
         }
 
         .countdown-label {
-            font-size: 11px;
+            font-size: 10px;
             color: rgba(255,255,255,0.5);
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             margin-top: 5px;
+            line-height: 1.3;
         }
 
         .countdown-message {
@@ -347,22 +348,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             min-height: 100%;
-            padding: 40px 20px 120px;
+            padding: 30px 20px 120px;
             text-align: center;
-        }
-
-        /* Personalized greeting */
-        .greeting-name {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(20px, 5vw, 28px);
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 5px;
-        }
-
-        .greeting-hey {
-            color: #f1c40f;
         }
 
         /* Photo */
@@ -402,38 +391,85 @@
         }
 
         /* Year */
+        .year-section {
+            margin: 20px 0 30px !important;
+            text-align: center !important;
+            padding: 10px 20px !important;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
         .happy-text {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(22px, 6vw, 36px);
-            color: #fff;
-            letter-spacing: 6px;
-            text-transform: uppercase;
+            font-family: 'Playfair Display', serif !important;
+            font-size: clamp(28px, 7vw, 44px) !important;
+            color: #fff !important;
+            letter-spacing: 8px !important;
+            text-transform: uppercase !important;
+            text-shadow: 0 0 20px rgba(255,255,255,0.3) !important;
+            display: block !important;
+            margin-bottom: 8px !important;
+            visibility: visible !important;
+            opacity: 1 !important;
         }
 
         .nepali-text {
-            font-family: 'Tiro Devanagari Hindi', serif;
-            font-size: clamp(18px, 5vw, 26px);
-            color: rgba(255,255,255,0.85);
-            margin: 8px 0 15px;
+            font-family: 'Tiro Devanagari Hindi', serif !important;
+            font-size: clamp(20px, 5vw, 32px) !important;
+            color: rgba(255,255,255,0.9) !important;
+            margin: 10px 0 15px !important;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
         }
 
         .year {
-            font-family: 'Poppins', sans-serif;
-            font-size: clamp(80px, 25vw, 150px);
-            font-weight: 800;
-            background: linear-gradient(45deg, #ff0080, #ff8c00, #f1c40f, #40e0d0, #7b68ee);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: year-shift 4s ease infinite;
-            line-height: 1;
-            filter: drop-shadow(0 0 30px rgba(241,196,15,0.4));
+            font-family: 'Poppins', sans-serif !important;
+            font-size: clamp(100px, 28vw, 180px) !important;
+            font-weight: 800 !important;
+            background: linear-gradient(180deg, #f5af19, #f12711) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            line-height: 1 !important;
+            filter: drop-shadow(0 4px 30px rgba(245, 175, 25, 0.4)) !important;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
         }
 
-        @keyframes year-shift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+                /* Personal Greeting */
+        .personal-greeting {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(24px, 6vw, 36px);
+            color: #fff;
+            margin-top: 10px;
+        }
+
+        .personal-greeting span {
+            color: #f1c40f;
+            font-weight: 700;
+        }
+
+        .personal-subtitle {
+            font-family: 'Tiro Devanagari Hindi', serif;
+            font-size: 16px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 20px;
+        }
+
+        /* Funny Card */
+        .funny-card {
+            background: linear-gradient(135deg, rgba(241,196,15,0.08), rgba(231,76,60,0.05));
+            border-color: rgba(241,196,15,0.2);
+        }
+
+        .funny-card p {
+            font-size: 14px;
+        }
+
+        .funny-card .message-nepali {
+            font-size: 13px;
         }
 
         /* Message */
@@ -560,7 +596,122 @@
             background: rgba(255,255,255,0.2);
         }
 
+        /* Comic Section */
+        .comic-section {
+            margin: 25px 0;
+            width: 100%;
+            max-width: 340px;
+        }
+
+        .comic-card {
+            background: linear-gradient(135deg, rgba(155, 89, 182, 0.15), rgba(52, 152, 219, 0.1));
+            border: 1px solid rgba(155, 89, 182, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .comic-title {
+            font-size: 14px;
+            color: #f1c40f;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .comic-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 14px;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.5;
+        }
+
+        .comic-item:last-child {
+            border-bottom: none;
+        }
+
+        .comic-emoji {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .comic-nepali {
+            font-family: 'Tiro Devanagari Hindi', serif;
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 3px;
+        }
+
+        .resolution-section {
+            margin: 25px 0;
+            width: 100%;
+            max-width: 340px;
+        }
+
+        .resolution-card {
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.15), rgba(241, 196, 15, 0.1));
+            border: 1px solid rgba(231, 76, 60, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .resolution-title {
+            font-size: 14px;
+            color: #e74c3c;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .resolution-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            font-size: 14px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .crossed {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+
+        .resolution-status {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: auto;
+        }
+
+        .status-failed {
+            background: rgba(231, 76, 60, 0.3);
+            color: #e74c3c;
+        }
+
+        .status-maybe {
+            background: rgba(241, 196, 15, 0.3);
+            color: #f1c40f;
+        }
+
         /* Music Button */
+        .music-section {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .music-intro {
+            font-family: 'Tiro Devanagari Hindi', serif;
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
         .music-btn {
             display: inline-flex;
             align-items: center;
@@ -822,10 +973,10 @@
 
     <!-- ============ SCREEN 1: INTRO ============ -->
     <div class="screen" id="intro-screen" onclick="goToNameScreen()">
-        <div class="intro-badge">✨ You have a special message</div>
+        <div class="intro-badge">अंग्रेजी नयाँ वर्ष आउँदैछ</div>
         <div class="gift-emoji">🎁</div>
-        <div class="intro-title">A New Year Wish<br>Awaits You!</div>
-        <div class="intro-subtitle">तपाईंको लागि एक विशेष शुभकामना 🙏</div>
+        <div class="intro-title">A New Year Wish<br>Awaits You</div>
+        <div class="intro-subtitle">हाम्रो त बैशाखमा, तर party गर्न के हर्ज छ र!</div>
         <div class="tap-hint">Tap anywhere to continue</div>
     </div>
 
@@ -836,32 +987,32 @@
         <div class="name-input-container">
             <input type="text" class="name-input" id="name-input" placeholder="Enter your name..." maxlength="20" autocomplete="off">
         </div>
-        <button class="continue-btn" onclick="goToCountdown()">Continue ✨</button>
+        <button class="continue-btn" onclick="goToCountdown()">Continue</button>
         <button class="skip-btn" onclick="skipName()">Skip for now</button>
     </div>
 
     <!-- ============ SCREEN 3: COUNTDOWN ============ -->
     <div class="screen hidden" id="countdown-screen">
-        <div class="countdown-title">Countdown to 2026</div>
+        <div class="countdown-title" id="countdown-title">Countdown to 2026</div>
         <div class="countdown-display">
             <div class="countdown-item">
                 <div class="countdown-number" id="days">00</div>
-                <div class="countdown-label">Days</div>
+                <div class="countdown-label">Days / दिन</div>
             </div>
             <div class="countdown-item">
                 <div class="countdown-number" id="hours">00</div>
-                <div class="countdown-label">Hours</div>
+                <div class="countdown-label">Hours / घण्टा</div>
             </div>
             <div class="countdown-item">
                 <div class="countdown-number" id="minutes">00</div>
-                <div class="countdown-label">Minutes</div>
+                <div class="countdown-label">Min / मिनेट</div>
             </div>
             <div class="countdown-item">
                 <div class="countdown-number" id="seconds">00</div>
-                <div class="countdown-label">Seconds</div>
+                <div class="countdown-label">Sec / सेकेन्ड</div>
             </div>
         </div>
-        <div class="countdown-message">नयाँ वर्ष आउँदैछ! ✨</div>
+        <div class="countdown-message" id="countdown-message">पर्खनुहोस्, नयाँ वर्ष आउँदैछ...</div>
         <button class="skip-countdown" onclick="goToMain()">Open My Wish 🎁</button>
     </div>
 
@@ -870,51 +1021,150 @@
         <div class="stars" id="stars"></div>
         
         <div class="main-content">
-            <div class="greeting-name" id="greeting-name">
-                <span class="greeting-hey">Hey</span> Friend! 👋
+
+            <!-- Main Year Display - FIRST and Prominent -->
+            <div class="year-section">
+                <div class="happy-text">Happy New Year</div>
+                <div class="nepali-text">नयाँ वर्षको शुभकामना</div>
+                <div class="year">2026</div>
             </div>
 
+            <!-- Photo and Personalized Greeting -->
             <div class="photo-frame">
                 <div class="photo-inner">😊</div>
             </div>
 
-            <div class="happy-text">Happy New Year</div>
-            <div class="nepali-text">नयाँ वर्षको शुभकामना</div>
-            <div class="year">2026</div>
+            <div class="personal-greeting" id="personal-greeting">
+                Hey <span id="display-name">Friend</span>,
+            </div>
+            <div class="personal-subtitle">यो तपाईंको लागि हो...</div>
 
+            <!-- Heartfelt Message -->
             <div class="message-card">
                 <p>
                     May this year bring you <span class="highlight">endless joy</span>, 
                     beautiful moments, and all the <span class="highlight">happiness</span> 
-                    your heart can hold! ✨
+                    your heart can hold.
                 </p>
                 <p class="message-nepali">
                     यो वर्ष तपाईंको जीवनमा खुशी, सफलता र मायाले भरिपूर्ण होस्। 
-                    नयाँ सपना, नयाँ आशा! 🙏
+                    नयाँ सपना, नयाँ आशा, नयाँ सुरुवात!
+                </p>
+            </div>
+
+            <!-- Funny Message -->
+            <div class="message-card funny-card">
+                <p>
+                    Angreji New Year aayo bhanne kura ta tha cha ni, 
+                    hamro chai Baisakh ma ho tara <span class="highlight">party garna</span> ke harj cha ra!
+                </p>
+                <p class="message-nepali">
+                    Yo saal <span class="highlight">zero tension</span>, unlimited happiness, 
+                    WiFi kabhi buffer na hove, aur alarm se pehle uthne ki energy mile!
                 </p>
             </div>
 
             <!-- Fortune -->
             <div class="fortune-section">
-                <div class="fortune-title">🔮 Your 2026 Fortune</div>
+                <div class="fortune-title">Your 2026 Fortune</div>
                 <div class="fortune-card">
                     <div class="fortune-emoji" id="fortune-emoji">🌟</div>
                     <div class="fortune-text" id="fortune-text">Loading your destiny...</div>
                 </div>
-                <button class="new-fortune-btn" onclick="newFortune()">🎲 New Fortune</button>
+                <button class="new-fortune-btn" onclick="newFortune()">Try Another Fortune</button>
+            </div>
+
+            <!-- Comic Section - Angreji Naya Barsha -->
+            <div class="comic-section">
+                <div class="comic-card">
+                    <div class="comic-title">Angreji Naya Barsha Special</div>
+                    
+                    <div class="comic-item">
+                        <span class="comic-emoji">🗓️</span>
+                        <div>
+                            Nepali Calendar be like: "Hamro new year ta Baisakh ma ho"
+                            <div class="comic-nepali">January 1: "Tara celebrate garna ke harj cha ra!"</div>
+                        </div>
+                    </div>
+                    
+                    <div class="comic-item">
+                        <span class="comic-emoji">🌅</span>
+                        <div>
+                            Dec 31, 11:59 PM: "New year, new me, this time pakka!"
+                            <div class="comic-nepali">Jan 2: Same me, just extra tired and broke</div>
+                        </div>
+                    </div>
+                    
+                    <div class="comic-item">
+                        <span class="comic-emoji">💪</span>
+                        <div>
+                            Resolution: "Gym join garchu, daily janchu!"
+                            <div class="comic-nepali">Plot twist: Membership card ajhai wallet mai cha</div>
+                        </div>
+                    </div>
+
+                    <div class="comic-item">
+                        <span class="comic-emoji">📱</span>
+                        <div>
+                            "2026 ma screen time drastically reduce garchu"
+                            <div class="comic-nepali">Also me right now: Yo message padhdai chu</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2025 Resolution Reality Check -->
+            <div class="resolution-section">
+                <div class="resolution-card">
+                    <div class="resolution-title">2025 Resolution Reality Check</div>
+                    
+                    <div class="resolution-item">
+                        <span>🏃</span>
+                        <span class="crossed">Morning walk daily</span>
+                        <span class="resolution-status status-failed">RIP</span>
+                    </div>
+                    
+                    <div class="resolution-item">
+                        <span>💰</span>
+                        <span class="crossed">Save money this year</span>
+                        <span class="resolution-status status-failed">Daraz won</span>
+                    </div>
+                    
+                    <div class="resolution-item">
+                        <span>📚</span>
+                        <span class="crossed">Read more books</span>
+                        <span class="resolution-status status-failed">Reels won</span>
+                    </div>
+                    
+                    <div class="resolution-item">
+                        <span>🥗</span>
+                        <span class="crossed">Eat healthy food only</span>
+                        <span class="resolution-status status-maybe">Momo won</span>
+                    </div>
+                    
+                    <div class="resolution-item">
+                        <span>⏰</span>
+                        <span>Wake up early... someday</span>
+                        <span class="resolution-status status-maybe">2026?</span>
+                    </div>
+                </div>
             </div>
 
             <div class="signature">
-                <div class="from-text">With love / माया सहित,</div>
+                <div class="from-text">With love from</div>
                 <div class="name-sign">Sagar <span class="heart">❤️</span></div>
             </div>
 
-            <a href="https://open.spotify.com/track/7F5oktn5YOsR9eR5YsFtqb" target="_blank" class="music-btn">
-                🎵 Play "New Year's Day" - Taylor Swift
-            </a>
+            <!-- Music Section -->
+            <div class="music-section">
+                <p class="music-intro">Sense ta na-garlaa, tara yo geet sunna saknu hunxa</p>
+                <a href="https://open.spotify.com/track/7F5oktn5YOsR9eR5YsFtqb" target="_blank" class="music-btn">
+                    🎵 Play "New Year's Day" - Taylor Swift
+                </a>
+            </div>
         </div>
 
-        <div class="shake-hint" id="shake-hint">📱 Shake your phone for surprise!</div>
+        <div class="shake-hint" id="shake-hint">Phone hallau, magic herau</div>
 
         <div class="action-buttons">
             <button class="action-btn party-btn" onclick="partyBurst()">🎉</button>
@@ -926,7 +1176,7 @@
     <!-- Share Modal -->
     <div class="share-modal" id="share-modal">
         <div class="share-modal-content">
-            <h3>Share the Joy! 🎉</h3>
+            <h3>Share gara yaar</h3>
             <div class="share-options">
                 <a href="#" class="share-option share-whatsapp" id="share-whatsapp">💬</a>
                 <a href="#" class="share-option share-twitter" id="share-twitter">🐦</a>
@@ -956,21 +1206,22 @@
 
         // ============ FORTUNES ============
         const fortunes = [
-            { emoji: '💰', text: "Big financial wins are coming your way! Save wisely, spend joyfully." },
-            { emoji: '❤️', text: "Love will find you in unexpected places. Keep your heart open!" },
-            { emoji: '✈️', text: "Adventure awaits! You'll travel somewhere you've always dreamed of." },
-            { emoji: '🎯', text: "That goal you've been chasing? 2026 is YOUR year to achieve it!" },
-            { emoji: '🌟', text: "You'll inspire someone in ways you never imagined. Shine bright!" },
-            { emoji: '📚', text: "A new skill you learn will open incredible doors for you." },
-            { emoji: '🏆', text: "Recognition and success! Your hard work will finally pay off." },
-            { emoji: '🌈', text: "After every storm comes a rainbow. Brighter days are ahead!" },
-            { emoji: '💪', text: "Your health and energy will be at an all-time high. Stay active!" },
-            { emoji: '🎵', text: "Music and creativity will bring unexpected joy into your life." },
-            { emoji: '🤝', text: "A new friendship will change your life in beautiful ways." },
-            { emoji: '🚀', text: "Your career is about to take off! Get ready for exciting opportunities." },
-            { emoji: '🌸', text: "Peace and harmony will fill your home and relationships." },
-            { emoji: '💡', text: "A brilliant idea will strike you. Don't ignore it - act on it!" },
-            { emoji: '🎁', text: "Surprise gifts and blessings are headed your way. Stay grateful!" },
+            { emoji: '💰', text: "Money will come... eventually. Kahile tha chaina tara aucha!" },
+            { emoji: '❤️', text: "Love life ma something interesting huncha. Ya pheri momo sanga relationship." },
+            { emoji: '✈️', text: "Travel opportunity aucha! Pokhara counts as international trip, right?" },
+            { emoji: '🎯', text: "You'll achieve your goals this year... probably on December 31st." },
+            { emoji: '🌟', text: "Someone will call you 'kasto ramro manxe'. Believe it, you deserve it." },
+            { emoji: '💪', text: "Gym resolution will last longer this time. January 15 samma ta pakka." },
+            { emoji: '🏆', text: "Success is coming your way. Thoda late, but it's coming. Sabr gara." },
+            { emoji: '🌈', text: "Problems will come, but so will solutions. Tension linu pardaina." },
+            { emoji: '😴', text: "You'll finally get proper sleep... mostly on weekends though." },
+            { emoji: '🍕', text: "Your diet plan will work! Cheat days don't count, obviously." },
+            { emoji: '📱', text: "Screen time will reduce... when network becomes slow." },
+            { emoji: '🚀', text: "Career growth is certain. Appraisal ma ke huncha tha bhayena." },
+            { emoji: '🎵', text: "You might go viral this year. TikTok ma or real life ma, who knows." },
+            { emoji: '💡', text: "A brilliant idea will come at 3 AM. Bihanai birsincha tara." },
+            { emoji: '🎁', text: "Unexpected surprises are coming. Good ones, tension nalinu." },
+            { emoji: '☕', text: "Perfect chai/coffee milcha daily. If canteen wala doesn't mess up." },
         ];
 
         function newFortune() {
@@ -1012,8 +1263,7 @@
             document.getElementById('main-screen').classList.remove('hidden');
             
             // Set personalized greeting
-            document.getElementById('greeting-name').innerHTML = 
-                `<span class="greeting-hey">Hey</span> ${userName}! 👋`;
+            document.getElementById('display-name').textContent = userName;
             
             createStars();
             newFortune();
@@ -1030,7 +1280,7 @@
             }, 300);
 
             // Show achievement
-            setTimeout(() => showAchievement("🎊 Welcome to 2026!"), 1500);
+            setTimeout(() => showAchievement("2026 मा स्वागत छ"), 1500);
             
             // Hide shake hint after 5s
             setTimeout(() => {
@@ -1041,30 +1291,48 @@
 
         // ============ COUNTDOWN ============
         function startCountdown() {
-            const target = new Date('January 1, 2026 00:00:00').getTime();
+            const newYearTarget = new Date('January 1, 2026 00:00:00').getTime();
+            const yearEndTarget = new Date('January 1, 2027 00:00:00').getTime();
             
             const update = () => {
                 const now = new Date().getTime();
-                const diff = target - now;
+                const diffToNewYear = newYearTarget - now;
                 
-                if (diff <= 0) {
-                    document.getElementById('days').textContent = '00';
-                    document.getElementById('hours').textContent = '00';
-                    document.getElementById('minutes').textContent = '00';
-                    document.getElementById('seconds').textContent = '00';
-                    document.querySelector('.countdown-message').textContent = '🎉 Happy New Year 2026! 🎉';
-                    return;
+                // Check if it's already 2026
+                if (diffToNewYear <= 0) {
+                    // Show remaining time in 2026
+                    const diffToYearEnd = yearEndTarget - now;
+                    
+                    if (diffToYearEnd <= 0) {
+                        // It's already 2027 or later
+                        document.getElementById('countdown-message').textContent = '🎉 नयाँ वर्षको शुभकामना! 🎉';
+                        return;
+                    }
+                    
+                    const days = Math.floor(diffToYearEnd / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diffToYearEnd % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diffToYearEnd % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diffToYearEnd % (1000 * 60)) / 1000);
+                    
+                    document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+                    
+                    document.getElementById('countdown-title').textContent = '2026 मा बाँकी समय';
+                    document.getElementById('countdown-message').textContent = '2026 enjoy गर्नुहोस्, party time!';
+                } else {
+                    // Countdown to New Year 2026
+                    const days = Math.floor(diffToNewYear / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diffToNewYear % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diffToNewYear % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diffToNewYear % (1000 * 60)) / 1000);
+                    
+                    document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
                 }
-                
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-                
-                document.getElementById('days').textContent = days.toString().padStart(2, '0');
-                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
             };
             
             update();
@@ -1227,14 +1495,14 @@
                 ), i * 100);
             }
             
-            if (partyCount === 5) showAchievement("🎊 Party Animal!");
-            if (partyCount === 10) showAchievement("🔥 Unstoppable!");
+            if (partyCount === 5) showAchievement("Party animal bhayis ta");
+            if (partyCount === 10) showAchievement("Rokna sakinna timro energy");
         }
 
         // ============ SHARE ============
         function openShareModal() {
             const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent("🎉 Check out this amazing New Year wish from Sagar! Happy 2026! ✨");
+            const text = encodeURIComponent("Yo hera ta! Sagar le pathako New Year wish!");
             
             document.getElementById('share-whatsapp').href = `https://wa.me/?text=${text}%20${url}`;
             document.getElementById('share-twitter').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
@@ -1249,7 +1517,7 @@
 
         function copyLink() {
             navigator.clipboard.writeText(window.location.href).then(() => {
-                showAchievement("📋 Link Copied!");
+                showAchievement("Link copy bhayo, share gara");
                 closeShareModal();
             });
         }
@@ -1300,7 +1568,7 @@
             if (total > 40 && Date.now() - lastShake > 1000) {
                 lastShake = Date.now();
                 partyBurst();
-                showAchievement("📱 Shake Master!");
+                showAchievement("Phone futla jasto cha hai");
             }
         });
 
