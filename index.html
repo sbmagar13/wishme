@@ -3,11 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#0a0a1a">
+    <meta name="theme-color" content="#05050a">
+    <meta name="color-scheme" content="dark">
     <meta property="og:title" content="🎉 You're Invited to Celebrate 2026!">
     <meta property="og:description" content="A special New Year wish just for you from Sagar ✨">
-    <title>🎉 Happy New Year 2026!</title>
+    <meta name="description" content="A special New Year 2026 wish created with love">
+    
+    <!-- Preconnect for faster font loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/playfairdisplay/v30/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtM.woff2" as="font" type="font/woff2" crossorigin>
+    
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600;800&family=Tiro+Devanagari+Hindi:wght@400&display=swap" rel="stylesheet">
+    
+    <title>🎉 Happy New Year 2026!</title>
+    
+    <!-- Critical CSS for instant loading feel -->
+    <style>
+        /* Loading screen - show immediately */
+        .page-loader {
+            position: fixed;
+            inset: 0;
+            background: #05050a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .page-loader.loaded {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .loader-content {
+            text-align: center;
+        }
+        .loader-year {
+            font-family: Georgia, serif;
+            font-size: 48px;
+            color: #d4af37;
+            animation: loader-pulse 1.5s ease-in-out infinite;
+        }
+        .loader-text {
+            font-family: sans-serif;
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 15px;
+            letter-spacing: 3px;
+        }
+        @keyframes loader-pulse {
+            0%, 100% { opacity: 0.5; transform: scale(0.98); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+    </style>
+    
     <style>
         * {
             margin: 0;
@@ -23,30 +75,96 @@
             overflow-x: hidden;
             background: linear-gradient(180deg, #05050a 0%, #0d0d1a 40%, #12121f 100%);
             cursor: none;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        /* ============ PREMIUM CSS VARIABLES ============ */
+        :root {
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+            --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+            --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --gold: #d4af37;
+            --gold-light: #f4e4bc;
+            --gold-dark: #b8860b;
+            --transition-fast: 0.15s var(--ease-out-quart);
+            --transition-normal: 0.3s var(--ease-out-expo);
+            --transition-slow: 0.5s var(--ease-out-expo);
+        }
+
+        /* Accessibility: Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .floating-card { animation: none; }
+            .confetti, .firework { display: none; }
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* GPU Acceleration for smooth animations */
+        .floating-card,
+        .confetti,
+        .firework,
+        .star,
+        .cursor,
+        .achievement-toast,
+        .fbi-toast,
+        .action-btn,
+        .year,
+        .photo-frame,
+        .screen {
+            will-change: transform, opacity;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+        /* Smooth scrolling */
+        .main-content {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Optimized transitions */
+        .smooth-transition {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* Custom Cursor - Desktop only */
         @media (pointer: fine) {
             .cursor {
                 position: fixed;
+                left: 0;
+                top: 0;
                 width: 20px;
-                height: 20px;
+                height-: 20px;
                 border-radius: 50%;
                 pointer-events: none;
                 z-index: 99999;
                 mix-blend-mode: difference;
+                will-change: transform;
             }
             .cursor-dot {
+                width: 8px;
+                height: 8px;
                 background: #fff;
-                transform: translate(-50%, -50%);
+                margin: -4px 0 0 -4px;
             }
             .cursor-ring {
                 width: 40px;
                 height: 40px;
-                border: 2px solid #fff;
+                border: 2px solid rgba(255,255,255,0.8);
                 background: transparent;
-                transform: translate(-50%, -50%);
-                transition: all 0.15s ease;
+                margin: -20px 0 0 -20px;
+                transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
             }
         }
 
@@ -58,17 +176,21 @@
         /* Rainbow trail */
         .rainbow-trail {
             position: fixed;
-            width: 8px;
-            height: 8px;
+            left: 0;
+            top: 0;
+            width: 6px;
+            height: 6px;
+            margin: -3px 0 0 -3px;
             border-radius: 50%;
             pointer-events: none;
             z-index: 99997;
-            animation: rainbow-fade 0.6s ease forwards;
+            will-change: transform, opacity;
+            animation: rainbow-fade 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         @keyframes rainbow-fade {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(0); opacity: 0; }
+            0% { transform: translate3d(var(--x, 0), var(--y, 0), 0) scale(1); opacity: 0.7; }
+            100% { transform: translate3d(var(--x, 0), var(--y, 0), 0) scale(0); opacity: 0; }
         }
 
         /* ============ SCREEN 1: INTRO ============ */
@@ -84,18 +206,19 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            transition: all 0.6s ease;
+            transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
             overflow: hidden;
+            will-change: opacity, transform;
         }
 
         .screen.hidden {
             opacity: 0;
             pointer-events: none;
-            transform: scale(1.1);
+            transform: scale(1.05) translateY(-10px);
         }
 
         #intro-screen {
-            background: radial-gradient(ellipse at center, #1a1a3e 0%, #0a0a1a 100%);
+            background: radial-gradient(ellipse at center, #0f0f1a 0%, #05050a 100%);
             z-index: 100;
         }
 
@@ -350,14 +473,15 @@
 
         .star {
             position: absolute;
-            background: #fff;
+            background: radial-gradient(circle, #fff 0%, rgba(255,255,255,0.5) 50%, transparent 100%);
             border-radius: 50%;
-            animation: twinkle 2s ease-in-out infinite;
+            animation: twinkle 3s ease-in-out infinite;
+            will-change: opacity, transform;
         }
 
         @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.5); }
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.3); }
         }
 
         .main-content {
@@ -370,6 +494,8 @@
             min-height: 100%;
             padding: 30px 20px 120px;
             text-align: center;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
         }
 
         /* Photo */
@@ -379,10 +505,11 @@
             border-radius: 50%;
             background: linear-gradient(45deg, #d4af37, #f4e4bc, #b8860b, #daa520, #c9a227);
             background-size: 300% 300%;
-            animation: rainbow-spin 4s linear infinite;
+            animation: rainbow-spin 5s linear infinite;
             padding: 4px;
             margin: 20px 0;
-            box-shadow: 0 0 40px rgba(241,196,15,0.3);
+            box-shadow: 0 0 40px rgba(212,175,55,0.25);
+            will-change: transform;
         }
 
         @keyframes rainbow-spin {
@@ -640,8 +767,9 @@
             position: fixed;
             z-index: 40;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: left 0.4s var(--ease-spring), right 0.4s var(--ease-spring), transform 0.4s var(--ease-spring);
             animation: float-bob 4s ease-in-out infinite;
+            will-change: transform;
         }
 
         .floating-card:hover {
@@ -650,7 +778,8 @@
 
         .float-card-inner {
             background: linear-gradient(145deg, rgba(15,15,20,0.95), rgba(10,10,15,0.98));
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(212,175,55,0.2);
             border-radius: 16px;
             padding: 12px 14px;
@@ -661,11 +790,17 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.5), 
                         inset 0 1px 0 rgba(255,255,255,0.03);
             min-width: 85px;
+            transition: border-color 0.3s var(--ease-out-quart), box-shadow 0.3s var(--ease-out-quart);
         }
 
         .float-card-icon {
             font-size: 28px;
             filter: drop-shadow(0 2px 8px rgba(212,175,55,0.3));
+            transition: transform 0.3s var(--ease-spring);
+        }
+
+        .floating-card:hover .float-card-icon {
+            transform: scale(1.1);
         }
 
         .float-card-title {
@@ -1488,19 +1623,22 @@
             border: 1px solid rgba(212,175,55,0.3);
             font-size: 18px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.2s var(--ease-spring), border-color 0.2s ease, box-shadow 0.2s ease;
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             display: flex;
             align-items: center;
             justify-content: center;
             background: linear-gradient(145deg, rgba(20,20,25,0.95), rgba(10,10,15,0.98));
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            will-change: transform;
         }
 
         .action-btn svg {
             width: 18px;
             height: 18px;
             color: #d4af37;
+            transition: transform 0.2s var(--ease-spring);
         }
 
         .party-btn {
@@ -1516,13 +1654,18 @@
         }
 
         .action-btn:hover {
-            transform: scale(1.1);
+            transform: scale(1.12);
             border-color: rgba(212,175,55,0.6);
             box-shadow: 0 15px 40px rgba(0,0,0,0.5), 0 0 20px rgba(212,175,55,0.1);
         }
 
+        .action-btn:hover svg {
+            transform: scale(1.1);
+        }
+
         .action-btn:active {
-            transform: scale(0.95);
+            transform: scale(0.92);
+            transition-duration: 0.1s;
         }
 
         /* Shake hint */
@@ -1679,13 +1822,16 @@
 
         .confetti {
             position: fixed;
+            top: -30px;
             pointer-events: none;
             z-index: 200;
-            animation: confetti-fall linear forwards;
+            will-change: transform, opacity;
+            animation: confetti-fall cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
 
         @keyframes confetti-fall {
-            to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+            0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); opacity: 1; }
+            100% { transform: translate3d(0, 100vh, 0) rotate(720deg) scale(0.5); opacity: 0; }
         }
 
         .flash {
@@ -1694,14 +1840,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #fff;
+            background: rgba(212,175,55,0.15);
             z-index: 9999;
-            animation: flash 0.4s ease forwards;
+            animation: flash 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
             pointer-events: none;
         }
 
         @keyframes flash {
-            0% { opacity: 0.8; }
+            0% { opacity: 1; }
             100% { opacity: 0; }
         }
 
@@ -1737,17 +1883,23 @@
             pointer-events: none !important;
         }
 
-        /* Scroll Animations */
+        /* Scroll Animations - Premium entrance */
         .scroll-animate {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(25px) scale(0.98);
+            transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
         }
 
         .scroll-animate.animate-in {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
+
+        /* Staggered animation delays for cards */
+        .scroll-animate:nth-child(1) { transition-delay: 0s; }
+        .scroll-animate:nth-child(2) { transition-delay: 0.1s; }
+        .scroll-animate:nth-child(3) { transition-delay: 0.2s; }
+        .scroll-animate:nth-child(4) { transition-delay: 0.3s; }
 
         /* Double Tap Heart */
         @keyframes floatHeart {
@@ -1768,12 +1920,12 @@
         /* Tap animations */
         .year {
             cursor: pointer;
-            transition: transform 0.15s ease;
+            transition: transform 0.2s var(--ease-spring);
         }
 
         .photo-container {
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: transform 0.25s var(--ease-spring);
         }
 
         /* Mobile optimizations */
@@ -1821,27 +1973,6 @@
             }
         }
 
-        /* Pull to confetti hint */
-        .pull-hint {
-            position: fixed;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(145deg, rgba(15,15,20,0.9), rgba(10,10,15,0.95));
-            border: 1px solid rgba(212,175,55,0.2);
-            color: rgba(255,255,255,0.6);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 10px;
-            z-index: 50;
-            opacity: 0;
-            animation: showPullHint 0.5s ease 3s forwards;
-        }
-
-        @keyframes showPullHint {
-            to { opacity: 1; }
-        }
-
         /* Smile emoji floating */
         .floating-emoji {
             position: fixed;
@@ -1859,6 +1990,13 @@
     </style>
 </head>
 <body>
+    <!-- Premium Page Loader -->
+    <div class="page-loader" id="page-loader">
+        <div class="loader-content">
+            <div class="loader-year">2026</div>
+            <div class="loader-text">LOADING</div>
+        </div>
+    </div>
     <!-- Custom Cursor -->
     <div class="cursor cursor-dot" id="cursor-dot"></div>
     <div class="cursor cursor-ring" id="cursor-ring"></div>
@@ -2159,7 +2297,6 @@
         </div>
 
         <div class="shake-hint" id="shake-hint">Phone hallau, magic herau</div>
-        <div class="pull-hint" id="pull-hint">↓ Pull down for confetti ↓</div>
 
         <div class="action-buttons">
             <button class="action-btn party-btn" onclick="partyBurst()">🎉</button>
@@ -2210,6 +2347,40 @@
     <div class="screenshot-frame" id="screenshot-frame"></div>
 
     <script>
+        // ============ PERFORMANCE UTILITIES ============
+        // Throttle function - limits how often a function can fire
+        function throttle(func, limit) {
+            let inThrottle;
+            return function(...args) {
+                if (!inThrottle) {
+                    func.apply(this, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            }
+        }
+
+        // Debounce function - waits until action stops
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            }
+        }
+
+        // RequestAnimationFrame wrapper for smooth animations
+        function smoothAnimate(callback) {
+            return requestAnimationFrame(callback);
+        }
+
+        // Batch DOM updates
+        function batchUpdate(updates) {
+            requestAnimationFrame(() => {
+                updates.forEach(update => update());
+            });
+        }
+
         // ============ STATE ============
         let userName = 'Friend';
         let soundOn = true;
@@ -2672,60 +2843,102 @@
         function createStars() {
             const container = document.getElementById('stars');
             if (!container) return;
-            for (let i = 0; i < 80; i++) {
+            
+            const fragment = document.createDocumentFragment();
+            const starCount = 60; // Reduced from 80
+            
+            for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.width = Math.random() * 3 + 1 + 'px';
-                star.style.height = star.style.width;
-                star.style.animationDelay = Math.random() * 2 + 's';
-                container.appendChild(star);
+                const size = Math.random() * 2.5 + 0.5;
+                star.style.cssText = `
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    width: ${size}px;
+                    height: ${size}px;
+                    animation-delay: ${Math.random() * 3}s;
+                `;
+                fragment.appendChild(star);
             }
+            
+            container.appendChild(fragment);
         }
 
+        // ============ OPTIMIZED CONFETTI ============
         function createConfetti(count = 40) {
-            const shapes = ['✨', '⭐', '🌟', '💫', '❤️', '🎉', '🎊', '💖'];
-            for (let i = 0; i < count; i++) {
-                setTimeout(() => {
-                    const conf = document.createElement('div');
-                    conf.className = 'confetti';
-                    conf.textContent = shapes[Math.floor(Math.random() * shapes.length)];
-                    conf.style.left = Math.random() * 100 + '%';
-                    conf.style.top = '-20px';
-                    conf.style.fontSize = Math.random() * 15 + 12 + 'px';
-                    conf.style.animationDuration = Math.random() * 2 + 2 + 's';
-                    document.body.appendChild(conf);
-                    setTimeout(() => conf.remove(), 4000);
-                }, i * 30);
+            const shapes = ['✨', '⭐', '🌟', '💫'];
+            const fragment = document.createDocumentFragment();
+            const confettis = [];
+            
+            for (let i = 0; i < Math.min(count, 30); i++) { // Cap at 30 for performance
+                const conf = document.createElement('div');
+                conf.className = 'confetti';
+                conf.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+                conf.style.cssText = `
+                    left: ${Math.random() * 100}%;
+                    font-size: ${Math.random() * 12 + 14}px;
+                    animation-duration: ${Math.random() * 1.5 + 2}s;
+                    animation-delay: ${i * 0.02}s;
+                `;
+                confettis.push(conf);
+                fragment.appendChild(conf);
             }
+            
+            document.body.appendChild(fragment);
+            
+            // Batch remove after animation
+            setTimeout(() => {
+                confettis.forEach(c => c.remove());
+            }, 4000);
         }
 
+        // ============ OPTIMIZED FIREWORK ============
         function createFirework(x, y) {
             playFireworkSound();
             const color = colors[Math.floor(Math.random() * colors.length)];
-            for (let i = 0; i < 30; i++) {
+            const particleCount = 20; // Reduced from 30
+            const particles = [];
+            
+            for (let i = 0; i < particleCount; i++) {
                 const p = document.createElement('div');
                 p.className = 'firework';
-                p.style.left = x + 'px';
-                p.style.top = y + 'px';
-                p.style.background = color;
-                p.style.boxShadow = `0 0 6px ${color}`;
+                p.style.cssText = `
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: ${color};
+                    box-shadow: 0 0 4px ${color};
+                `;
                 document.body.appendChild(p);
-                const angle = (Math.PI * 2 * i) / 30;
-                const vel = Math.random() * 5 + 3;
-                let vx = Math.cos(angle) * vel, vy = Math.sin(angle) * vel;
-                let px = x, py = y, op = 1;
-                const animate = () => {
-                    px += vx; py += vy + 0.15; op -= 0.025;
-                    p.style.left = px + 'px';
-                    p.style.top = py + 'px';
-                    p.style.opacity = op;
-                    if (op > 0) requestAnimationFrame(animate);
-                    else p.remove();
-                };
-                requestAnimationFrame(animate);
+                particles.push({
+                    el: p,
+                    x: x,
+                    y: y,
+                    vx: Math.cos((Math.PI * 2 * i) / particleCount) * (Math.random() * 4 + 2),
+                    vy: Math.sin((Math.PI * 2 * i) / particleCount) * (Math.random() * 4 + 2),
+                    op: 1
+                });
             }
+            
+            // Single animation loop for all particles
+            const animateAll = () => {
+                let anyActive = false;
+                particles.forEach(p => {
+                    if (p.op > 0) {
+                        anyActive = true;
+                        p.x += p.vx;
+                        p.y += p.vy + 0.12;
+                        p.op -= 0.03;
+                        p.el.style.transform = `translate3d(${p.x - x}px, ${p.y - y}px, 0)`;
+                        p.el.style.opacity = p.op;
+                    }
+                });
+                if (anyActive) {
+                    requestAnimationFrame(animateAll);
+                } else {
+                    particles.forEach(p => p.el.remove());
+                }
+            };
+            requestAnimationFrame(animateAll);
         }
 
         function screenFlash() {
@@ -2746,8 +2959,8 @@
             partyCount++;
             vibrate([30, 20, 30, 20, 50]);
             playPop();
-            createConfetti(50);
-            for (let i = 0; i < 5; i++) {
+            createConfetti(35); // Reduced for performance
+            for (let i = 0; i < 4; i++) { // Reduced from 5
                 setTimeout(() => createFirework(
                     Math.random() * window.innerWidth,
                     Math.random() * window.innerHeight * 0.6
@@ -2782,27 +2995,31 @@
             });
         }
 
-        // ============ CURSOR ============
+        // ============ CURSOR (Optimized) ============
         const cursorDot = document.getElementById('cursor-dot');
         const cursorRing = document.getElementById('cursor-ring');
         let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+        let trailCounter = 0;
 
-        document.addEventListener('mousemove', (e) => {
+        // Throttled mouse move for better performance
+        const handleMouseMove = throttle((e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
             if (cursorDot) {
-                cursorDot.style.left = mouseX + 'px';
-                cursorDot.style.top = mouseY + 'px';
+                cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
             }
-            if (Math.random() > 0.6) createRainbowTrail(mouseX, mouseY);
-        });
+            // Reduced trail frequency for performance
+            trailCounter++;
+            if (trailCounter % 3 === 0) createRainbowTrail(mouseX, mouseY);
+        }, 16); // ~60fps
+
+        document.addEventListener('mousemove', handleMouseMove, { passive: true });
 
         function animateCursor() {
-            ringX += (mouseX - ringX) * 0.15;
-            ringY += (mouseY - ringY) * 0.15;
+            ringX += (mouseX - ringX) * 0.12;
+            ringY += (mouseY - ringY) * 0.12;
             if (cursorRing) {
-                cursorRing.style.left = ringX + 'px';
-                cursorRing.style.top = ringY + 'px';
+                cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
             }
             requestAnimationFrame(animateCursor);
         }
@@ -2811,26 +3028,27 @@
         function createRainbowTrail(x, y) {
             const trail = document.createElement('div');
             trail.className = 'rainbow-trail';
-            trail.style.left = x + 'px';
-            trail.style.top = y + 'px';
-            trail.style.background = `hsl(${trailHue}, 100%, 60%)`;
+            trail.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+            trail.style.background = `hsl(${trailHue}, 70%, 50%)`;
             document.body.appendChild(trail);
-            trailHue = (trailHue + 15) % 360;
-            setTimeout(() => trail.remove(), 600);
+            trailHue = (trailHue + 20) % 360;
+            setTimeout(() => trail.remove(), 500);
         }
 
-        // ============ SHAKE DETECTION ============
+        // ============ SHAKE DETECTION (Optimized) ============
         let lastShake = 0;
-        window.addEventListener('devicemotion', (e) => {
+        const handleDeviceMotion = throttle((e) => {
             const acc = e.accelerationIncludingGravity;
             if (!acc) return;
             const total = Math.abs(acc.x) + Math.abs(acc.y) + Math.abs(acc.z);
             if (total > 40 && Date.now() - lastShake > 1000) {
                 lastShake = Date.now();
                 partyBurst();
-                showAchievement("Phone futla jasto cha hai");
+                showAchievement("Phone futla jasto cha hai 📱");
             }
-        });
+        }, 100);
+        
+        window.addEventListener('devicemotion', handleDeviceMotion, { passive: true });
 
         // ============ CLICK EFFECTS ============
         document.addEventListener('click', (e) => {
@@ -2858,6 +3076,21 @@
                 setTimeout(() => conf.remove(), 3000);
             }
         }, 800);
+
+        // ============ HIDE PAGE LOADER ============
+        window.addEventListener('load', () => {
+            // Small delay to ensure everything is rendered
+            setTimeout(() => {
+                const loader = document.getElementById('page-loader');
+                if (loader) loader.classList.add('loaded');
+            }, 300);
+        });
+
+        // Fallback: hide loader after 3 seconds max
+        setTimeout(() => {
+            const loader = document.getElementById('page-loader');
+            if (loader) loader.classList.add('loaded');
+        }, 3000);
     </script>
 <!-- GoatCounter Analytics -->
     <script data-goatcounter="https://sbmagar13.goatcounter.com/count"
