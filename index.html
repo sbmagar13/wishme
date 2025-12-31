@@ -559,37 +559,6 @@
             }
         }
 
-        /* ============ MADE WITH LOVE WATERMARK ============ */
-        .watermark {
-            position: fixed;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 11px;
-            color: rgba(255,255,255,0.3);
-            z-index: 50;
-            pointer-events: none;
-            font-family: 'Poppins', sans-serif;
-            letter-spacing: 0.5px;
-            transition: opacity 0.3s ease;
-        }
-
-        .watermark .heart {
-            color: rgba(212,175,55,0.5);
-            display: inline-block;
-            animation: heartBeat 1.5s ease-in-out infinite;
-        }
-
-        @keyframes heartBeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        .watermark .name {
-            color: rgba(212,175,55,0.5);
-            font-weight: 500;
-        }
-
         .main-content {
             position: relative;
             z-index: 10;
@@ -785,15 +754,20 @@
             margin-top: 5px;
         }
 
-        .heart {
-            color: #d4af37;
+        .name-sign .heart {
+            -webkit-text-fill-color: initial;
+            background: none;
+            -webkit-background-clip: initial;
+            background-clip: initial;
+            color: #ff4757;
             display: inline-block;
             animation: heartbeat 1.5s ease infinite;
+            filter: drop-shadow(0 0 6px rgba(255,71,87,0.5));
         }
 
         @keyframes heartbeat {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
+            50% { transform: scale(1.2); }
         }
 
         /* Fortune Section */
@@ -2347,9 +2321,6 @@
         <!-- Ambient Floating Particles -->
         <div class="ambient-container" id="ambient-container"></div>
         
-        <!-- Made with Love Watermark -->
-        <div class="watermark" id="watermark">Made with <span class="heart">❤️</span> for <span class="name" id="watermark-name">You</span></div>
-
         <!-- ============ FLOATING EDGE CARDS ============ -->
         <!-- Left Side Card - Watch Video -->
         <div class="floating-card float-left-top" onclick="window.open('https://www.youtube.com/watch?v=ZbZSe6N_BXs', '_blank')">
@@ -3355,7 +3326,6 @@
             // Initialize ambient effects
             createAmbientParticles();
             updateTimeGreeting();
-            updateWatermark();
             
             // Initial celebration
             setTimeout(() => {
@@ -3598,14 +3568,6 @@
             
             greetingEl.textContent = greeting;
             if (greetingNepaliEl) greetingNepaliEl.textContent = greetingNepali;
-        }
-
-        // ============ UPDATE WATERMARK ============
-        function updateWatermark() {
-            const watermarkName = document.getElementById('watermark-name');
-            if (watermarkName) {
-                watermarkName.textContent = userName;
-            }
         }
 
         // ============ OPTIMIZED CONFETTI ============
