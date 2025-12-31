@@ -599,10 +599,14 @@
         /* ============ FLOATING EDGE CARDS ============ */
         .floating-card {
             position: fixed;
-            z-index: 50;
+            z-index: 40;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             animation: float-bob 4s ease-in-out infinite;
+        }
+
+        .floating-card:hover {
+            z-index: 45;
         }
 
         .float-card-inner {
@@ -667,7 +671,7 @@
 
         .float-right-mid {
             right: -50px;
-            top: 45%;
+            top: 50%;
             transform: rotate(12deg);
             animation-delay: 0.5s;
         }
@@ -679,7 +683,7 @@
 
         .float-left-bottom {
             left: -50px;
-            bottom: 15%;
+            bottom: 5%;
             transform: rotate(-8deg);
             animation-delay: 1s;
         }
@@ -703,7 +707,7 @@
 
         .float-right-bottom {
             right: -50px;
-            bottom: 15%;
+            bottom: 5%;
             transform: rotate(6deg);
             animation-delay: 2s;
         }
@@ -730,7 +734,7 @@
 
         .float-left-mid {
             left: -50px;
-            top: 35%;
+            top: 50%;
             transform: rotate(-10deg);
             animation-delay: 2.5s;
             --rot: -10deg;
@@ -1420,20 +1424,20 @@
         /* Action Buttons */
         .action-buttons {
             position: fixed;
-            bottom: 30px;
-            right: 20px;
+            bottom: 20px;
+            right: 15px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             z-index: 100;
         }
 
         .action-btn {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             border: none;
-            font-size: 22px;
+            font-size: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 5px 20px rgba(0,0,0,0.3);
@@ -1443,8 +1447,8 @@
         }
 
         .action-btn svg {
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
         }
 
         .party-btn {
@@ -1671,9 +1675,9 @@
 
     <!-- ============ SCREEN 1: INTRO ============ -->
     <div class="screen" id="intro-screen" onclick="goToNameScreen()">
-        <div class="intro-badge">अंग्रेजी नयाँ वर्ष आउँदैछ</div>
+        <div class="intro-badge">अंग्रेजी नयाँ वर्ष आइसकेको छ!</div>
         <div class="gift-emoji">🎁</div>
-        <div class="intro-title">A New Year Wish<br>Awaits You</div>
+        <div class="intro-title">A New Year Wish<br>Just For You</div>
         <div class="intro-subtitle">हाम्रो त बैशाखमा, तर party गर्न के हर्ज छ र!</div>
         <div class="tap-hint">Tap anywhere to continue</div>
     </div>
@@ -1691,7 +1695,7 @@
 
     <!-- ============ SCREEN 3: COUNTDOWN ============ -->
     <div class="screen hidden" id="countdown-screen">
-        <div class="countdown-title" id="countdown-title">Countdown to 2026</div>
+        <div class="countdown-title" id="countdown-title">2026 मा बाँकी समय</div>
         <div class="countdown-display">
             <div class="countdown-item">
                 <div class="countdown-number" id="days">00</div>
@@ -1710,7 +1714,7 @@
                 <div class="countdown-label">Sec / सेकेन्ड</div>
             </div>
         </div>
-        <div class="countdown-message" id="countdown-message">पर्खनुहोस्, नयाँ वर्ष आउँदैछ...</div>
+        <div class="countdown-message" id="countdown-message">अंग्रेजी नयाँ वर्ष आइसकेको छ!</div>
         <button class="skip-countdown" onclick="goToMain()">Open My Wish 🎁</button>
     </div>
 
@@ -1756,14 +1760,7 @@
             </div>
         </div>
 
-        <!-- Bottom Right - Party -->
-        <div class="floating-card float-right-bottom" onclick="partyBurst()">
-            <div class="float-card-inner">
-                <div class="float-card-icon">🎉</div>
-                <div class="float-card-title">Party Mode</div>
-                <div class="float-card-desc">Tap for celebration!</div>
-            </div>
-        </div>
+        
 
         <!-- Left Mid - Nepal Cyber Bureau 👁️ -->
         <div class="floating-card float-left-mid" onclick="showCyberMessage()">
@@ -2209,48 +2206,30 @@
 
         // ============ COUNTDOWN ============
         function startCountdown() {
-            const newYearTarget = new Date('January 1, 2026 00:00:00').getTime();
             const yearEndTarget = new Date('January 1, 2027 00:00:00').getTime();
             
             const update = () => {
                 const now = new Date().getTime();
-                const diffToNewYear = newYearTarget - now;
+                const diff = yearEndTarget - now;
                 
-                // Check if it's already 2026
-                if (diffToNewYear <= 0) {
-                    // Show remaining time in 2026
-                    const diffToYearEnd = yearEndTarget - now;
-                    
-                    if (diffToYearEnd <= 0) {
-                        // It's already 2027 or later
-                        document.getElementById('countdown-message').textContent = '🎉 नयाँ वर्षको शुभकामना! 🎉';
-                        return;
-                    }
-                    
-                    const days = Math.floor(diffToYearEnd / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((diffToYearEnd % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((diffToYearEnd % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((diffToYearEnd % (1000 * 60)) / 1000);
-                    
-                    document.getElementById('days').textContent = days.toString().padStart(2, '0');
-                    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-                    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-                    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-                    
-                    document.getElementById('countdown-title').textContent = '2026 मा बाँकी समय';
-                    document.getElementById('countdown-message').textContent = '2026 enjoy गर्नुहोस्, party time!';
-                } else {
-                    // Countdown to New Year 2026
-                    const days = Math.floor(diffToNewYear / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((diffToNewYear % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((diffToNewYear % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((diffToNewYear % (1000 * 60)) / 1000);
-                    
-                    document.getElementById('days').textContent = days.toString().padStart(2, '0');
-                    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-                    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-                    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+                if (diff <= 0) {
+                    document.getElementById('days').textContent = '00';
+                    document.getElementById('hours').textContent = '00';
+                    document.getElementById('minutes').textContent = '00';
+                    document.getElementById('seconds').textContent = '00';
+                    document.getElementById('countdown-message').textContent = '2026 सकियो! See you in 2027! 🎉';
+                    return;
                 }
+                
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
             };
             
             update();
@@ -2541,5 +2520,8 @@
             }
         }, 800);
     </script>
+<!-- GoatCounter Analytics -->
+    <script data-goatcounter="https://sbmagar13.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
